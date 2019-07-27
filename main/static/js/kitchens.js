@@ -5,15 +5,34 @@ function getRndStatus(){
     else return "broken"
 }
 
-function generateNewColor(){
-    return "purple";
+const PEOPLE_PER_SLIDE = 5;
+
+function generateColorForPerson(index){
+    const maxColors = 360;
+    return `hsla(${(maxColors / PEOPLE_PER_SLIDE) * index}, 100%, 25%, 1)`
 }
 
-let people = ([...Array(100).keys()]).map(x => ({
+function chunk(array, chunkSize){
+    let chunks = [];
+
+    for(var i = 0; i < Math.ceil(array.length/chunkSize); i++){
+        chunks.push(array.slice(i * chunkSize, (i + 1) * chunkSize))
+    }
+
+    return chunks;
+}
+
+function range(to){
+    return [...Array(to).keys()]
+}
+
+let people = ([...Array(10).keys()]).map(x => ({
     name: "Tom Hickman " + x,
     picture: "images/expanded_photo_tkh.jpg",
     username: "thickman" + x 
 }))
+
+let peopleGroups = chunk(people, PEOPLE_PER_SLIDE);
 
 function setCurrentKitchenStatus(status){
     function hobInfoToHTML(info){
@@ -58,8 +77,11 @@ function setCurrentKitchenStatus(status){
                     fridgeRow => /*html*/`
                     <div class="fridge-row">
                         ${
-                            fridgeRow.map(fridge => 
-                                /*html*/`<div class="fridge-slot ${fridge.status}">&nbsp;</div>`
+                            fridgeRow.map(fridgeSlot => 
+                                /*html*/`
+                                <div ${fridgeSlot.status == "taken"?`data-owner="${fridgeSlot.owner}"`:""}
+                                     class="fridge-slot ${fridgeSlot.status}">&nbsp;</div>
+                                `
                             ).join("\n")
                         }
                     </div>
@@ -81,19 +103,56 @@ function setCurrentKitchenStatus(status){
     ).join("\n");
 
     $('#people-carousel').on('slid.bs.carousel', (ev) => {
-        console.log(ev.to)
+        onCarouselNext(ev.to);
     })
 
-    // document.querySelector(".people").innerHTML = status.people.map(
-    //     person => /*html*/`
-    //     <div class="profile" style="border-color: ${generateNewColor()}">
-    //         <div class="profile-pic" style="background-image: url(${person.picture})">
-    //             &nbsp;
-    //         </div>
-    //         ${person.name}
-    //     </div>
-    //     `
-    // ).join("\n");
+    onCarouselNext(0);
+}
+
+function onCarouselNext(newSlide){
+    document.querySelectorAll(`*[data-owner]`).forEach(x => {
+        x.style["border-color"] = "";
+        x.style["box-shadow"] = "";
+    });
+
+    peopleGroups[newSlide].map((person, i) => {
+        const color = generateColorForPerson(i);
+
+        const ownedItems = document.querySelectorAll(`*[data-owner=${person.username}]`);
+        ownedItems.forEach(x => {
+            x.style["border-color"] = color;
+            x.style["box-shadow"] = `inset ${color} 0px 0px 7px 2px`;
+        });
+    })
+}
+
+function setPeople(peopleChunks){
+    document.querySelector(".carousel-inner").innerHTML = peopleChunks.map(
+        (group, groupI) => 
+        /*html*/`
+        <div class="carousel-item ${groupI == 0?"active":""}">
+            <div class="people-slide">
+                ${group.map(
+                    (person, personIndex) => {
+                        return /*html*/`
+                        <div class="profile" style="border-color: ${generateColorForPerson(personIndex)}">
+                            <div class="profile-pic" style="background-image: url(${person.picture})">
+                                &nbsp;
+                            </div>
+                            ${person.name}
+                        </div>
+                        `
+                    }
+                ).join("\n")}
+            </div>
+        </div>`
+    ).join("\n");
+
+    document.querySelector(".carousel-indicators").innerHTML = range(peopleGroups.length).map(
+        i => /*html*/`
+            <li data-target="#people-carousel" data-slide-to="${i}" class="${i == 0?"active":""}"></li>
+        `
+    ).join("\n")
 }
 
 
@@ -120,7 +179,12 @@ $(() => {
             name: "my fridge", 
             contents: [
                 [{status: "taken", owner: "thickman1"}, {status: "free"}],
-                [{status: "free"}, {status: "taken", owner: "thickman2"}]
+                [{status: "free"}, {status: "taken", owner: "thickman2"}],
+                [{status: "free"}, {status: "free"}],
+                [{status: "taken", owner: "thickman3"}, {status: "free"}],
+                [{status: "free"}, {status: "taken", owner: "thickman10"}],
+                [{status: "taken", owner: "thickman7"}, {status: "free"}],
+                [{status: "free"}, {status: "taken", owner: "thickman9"}]
             ]
         }],
         ovens: [{
@@ -132,5 +196,7 @@ $(() => {
             status: "free"
         }]
     })
+
+    setPeople(peopleGroups)
 })
 
