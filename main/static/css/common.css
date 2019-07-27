@@ -47,3 +47,8 @@ hr {
     display: inline-block;
     vertical-align: middle;
 }
+.right-hand-side {
+    float: right;
+    position: relative;
+    top: 7px;
+}
