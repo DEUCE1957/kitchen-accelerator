@@ -7,23 +7,37 @@ class KitchenAdmin(admin.ModelAdmin):
         ("Information", { "fields": ["fridges", "ovens", "stoves"]}),
     ]
 
+    list_display = ("name", "location", "fridges", "ovens", "stoves")
+
 class MembersAdmin(admin.ModelAdmin):
     fields = ["user_id", "kitchen_id"]
+
+    list_display = ("user_id", "kitchen_id")
 
 class FridgeAdmin(admin.ModelAdmin):
     fields = ["kitchen", "full"]
 
+    list_display = ("kitchen", "full")
+
 class ShelfAdmin(admin.ModelAdmin):
     fields = ["fridge", "full"]
+
+    list_display = ("fridge", "full")
 
 class CellAdmin(admin.ModelAdmin):
     fields = ["shelf", "full"]
 
+    list_display = ("shelf", "full")
+
 class OvenAdmin(admin.ModelAdmin):
     fields = ["kitchen", "free"]
 
+    list_display = ("kitchen", "free")
+
 class StoveAdmin(admin.ModelAdmin):
     fields = ["kitchen", "type", "free"]
+
+    list_display = ("kitchen", "type", "free")
 
 admin.site.register(UserProfile)
 admin.site.register(Kitchen, KitchenAdmin)

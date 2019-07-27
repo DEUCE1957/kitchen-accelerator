@@ -8,11 +8,34 @@ import uuid
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    user_type = (
+        ("U", "User"),
+        ("M", "Moderator"),
+    )
+
+    type = models.CharField(choices=user_type, max_length=1, default='U')
+
     picture = models.ImageField(upload_to='profile_pics', height_field=None, width_field=None, max_length=64, null=False, default='profile_pics/default.png')
 
     def __str__(self):
         return self.user.username
 
+#Model manager for Proxy model (UserModerator)
+class UserModeratorManager(models.Manager):
+    def get_queryset(self):
+        return super(UserModeratorManager, self).get_queryset().filter(type='M')
+
+    def create(self, **kwargs):
+        kwargs.update({'type': 'M'})
+
+        return super(UserModeratorManager, self).create(**kwargs)
+
+#Proxy Model
+class UserModerator(UserProfile):
+    objects = UserModeratorManager()
+
+    class Meta:
+        proxy = True
 
 # define Kitchen-table
 class Kitchen(models.Model):
