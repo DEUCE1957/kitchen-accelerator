@@ -9,9 +9,9 @@ class User(models.Model):
     first_name = models.CharField(max_length=64, null=False)
     last_name = models.CharField(max_length=64, null=False)
     password = models.CharField(max_length=128, null=False)
-    email = models.CharField(max_length=64, null=False)
-    profile_picture = models.CharField(max_length=64)
-    slug = models.SlugField()
+    email = models.EmailField(max_length=64, null=False)
+    profile_picture = models.ImageField(upload_to='images/profile_pics', height_field=None, width_field=None, max_length=64, null=False, default='/images/default_profile_pic.jpg')
+    #slug = models.SlugField()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.id)
@@ -26,7 +26,7 @@ class Kitchen(models.Model):
     fridges = models.IntegerField(default=0)
     ovens = models.IntegerField(default=0)
     stoves = models.IntegerField(default=0)
-    slug = models.SlugField()
+    #slug = models.SlugField()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.id)
