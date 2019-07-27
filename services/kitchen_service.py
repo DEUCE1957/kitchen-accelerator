@@ -7,7 +7,7 @@ def add_kitchen(location, name):
     # define a new kitchen to add
     new_kitchen, check = Kitchen.objects.get_or_create(
         location=location,
-        name=name)[0]
+        name=name)
     # save changes to database
     new_kitchen.save()
     return check

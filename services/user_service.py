@@ -15,7 +15,7 @@ def add_user(firstname, lastname, username, password, email, profilepicture):
                 username=username,
                 password=ah.make_password(password),
                 email=email),
-            picture=profilepicture)[0]
+            picture=profilepicture)
         # save changes to database
         new_user.save()
         return check

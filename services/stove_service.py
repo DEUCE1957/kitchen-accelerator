@@ -7,7 +7,7 @@ def add_stove(kitchen_id, type):
     kitchen = Kitchen.objects.get(id=kitchen_id)
     new_stove, check = Stove.objects.get_or_create(
         kitchen=kitchen,
-        type=type)[0]
+        type=type)
     # increase the amount of fridges
     kitchen.stoves += 1
     # save changes to database

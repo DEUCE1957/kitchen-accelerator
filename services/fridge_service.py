@@ -7,7 +7,7 @@ def add_fridge(kitchen_id):
     # try:
     kitchen = Kitchen.objects.get(id=kitchen_id)
     new_fridge,check = Fridge.objects.get_or_create(
-        kitchen=kitchen)[0]
+        kitchen=kitchen)
     # increase the amount of fridges
     kitchen.fridges += 1
     kitchen.save()
