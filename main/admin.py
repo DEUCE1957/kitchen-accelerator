@@ -1,17 +1,17 @@
 from django.contrib import admin
-from main.models import Category, Page
+from main.models import User, Kitchen
 
 
-class CategoryAdmin(admin.ModelAdmin):
-    fields = ["views", "likes"]
+class UserAdmin(admin.ModelAdmin):
+    fields = ["first_name", "last_name", "password", "email", "profile_picture"]
 
 
-class PageAdmin(admin.ModelAdmin):
+class KitchenAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields":["title"]}),
-        ("Information", { "fields": ["url", "views"]}),
+        (None, {"fields":["name","location"]}),
+        ("Information", { "fields": ["fridges", "ovens", "stoves"]}),
     ]
 
 
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Page, PageAdmin)
+admin.site.register(User, UserAdmin)
+admin.site.register(Kitchen, KitchenAdmin)
