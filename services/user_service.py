@@ -9,11 +9,12 @@ def add_user(firstname, lastname, username, password, email, profilepicture):
     print("add user")
     try:
         new_user = UserProfile.objects.create(
-            user.first_name=firstname,
-            user.last_name=lastname,
-            user.username= username,
-            user.password = ah.make_password(password),
-            user.email=email,
+            user = User.objects.create(
+                first_name = firstname,
+                last_name = lastname,
+                username = username,
+                password = ah.make_password(password),
+                email = email)
             picture=profilepicture)
         # save changes to database
         print("new user done")
