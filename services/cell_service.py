@@ -12,3 +12,12 @@ def add_cell(shelf_id):
 
     except Exception as e:
         return False
+
+
+def book_cell(cell_id):
+    
+    print("book haha")
+    
+    
+def free_cell(cell_id):
+    print("free haha")

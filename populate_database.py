@@ -65,32 +65,33 @@ def populate():
     # add 5 fridges to every kitchen
     for k in Kitchen.objects.all():
         for f in range(5):
-            fridge_service.add_fridge(k.id)
+            print("fridge add" + fridge_service.add_fridge(k.id))
         
     # add 6 shelves into every fridge
     for fridge in Fridge.objects.all():
         for s in range(6):
-            shelf_service.add_shelf(fridge.id)
+            print("shelf add" + shelf_service.add_shelf(fridge.id))
         
     # add 4 cells into every shelf
     for shelf in Shelf.objects.all():
         for c in range(6):
-            cell_service.add_cell(shelf.id)
+            print("cell add" + cell_service.add_cell(shelf.id))
             
     # add 4 ovens into every kitchen
     for k in Kitchen.objects.all():
         for o in range(4):
-            oven_service.add_oven(k.id)
+            print("oven add" + oven_service.add_oven(k.id))
        
 
     # add 2 induction stoves and 2 electric stoves to every kitchen
     for k in Kitchen.objects.all():
         for i in range(2):
-            stove_service.add_stove(k.id, "induction")
-            stove_service.add_stove(k.id, "electric")
+            print("induction stove add" + stove_service.add_stove(k.id, "induction"))
+            print("electric stove add" + stove_service.add_stove(k.id, "electric"))
 
         
         
 if __name__ == '__main__':
-    print("Starting Rango population script...")
+    print("Starting kitchen population script...")
     populate()
+    print("Kitchen (hopefully) populated")
