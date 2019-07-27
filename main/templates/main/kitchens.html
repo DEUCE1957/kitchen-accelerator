@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+    <title> Kitchens </title>
+</head>
+
+<body>
+    <h1> List of Kitchens </h1>
+    <hr>
+    <div>
+        {% if kitchens %}
+        <ul>
+            {% for kitchen in kitchens %}
+                <li> {{kitchen.name}} </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong> There are no kitchens available </strong>
+        {% endif %}
+    </div>
+
+    <div>
+        <a href="/main/about"> About </a>
+    </div>
+</body>
+
+</html>
