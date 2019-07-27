@@ -60,6 +60,7 @@ class Cell(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shelf = models.ForeignKey(Shelf, on_delete=models.CASCADE, null=False)
     full = models.BooleanField(default=False)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, default=None)
 
 
 # define Oven-table
