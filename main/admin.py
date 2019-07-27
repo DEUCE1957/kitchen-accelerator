@@ -1,8 +1,8 @@
 from django.contrib import admin
-from main.models import User, Kitchen, Members, Fridge, Shelf, Cell, Oven, Stove
+from main.models import UserProfile, Kitchen, Members, Fridge, Shelf, Cell, Oven, Stove
 
 
-class UserAdmin(admin.ModelAdmin):
+class UserProfileAdmin(admin.ModelAdmin):
     fields = ["first_name", "last_name", "password", "email", "profile_picture"]
 
 
@@ -30,7 +30,7 @@ class OvenAdmin(admin.ModelAdmin):
 class StoveAdmin(admin.ModelAdmin):
     fields = ["kitchen", "type", "free"]
 
-admin.site.register(User, UserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Kitchen, KitchenAdmin)
 admin.site.register(Members, MembersAdmin)
 admin.site.register(Fridge, FridgeAdmin)

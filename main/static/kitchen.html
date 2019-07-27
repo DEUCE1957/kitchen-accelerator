@@ -39,15 +39,30 @@
                 }).join("\n")
 
                 Array.from(document.querySelectorAll(".fridge-content")).map(x => {
-                    x.innerHTML = [...Array(16).keys()].map(x => {
-                        return /*html*/`<div class="fridge-slot ${getRndStatus()}">&nbsp;</div>`
+                    x.innerHTML = [...Array(6).keys()].map(x => {
+                        return /*html*/`
+                        <div class="fridge-row">
+                            <div class="fridge-slot ${getRndStatus()}">&nbsp;</div>
+                            <div class="fridge-slot ${getRndStatus()}">&nbsp;</div>
+                        </div>
+                        `
                     }).join("\n")
                 })
             })
         </script>
         <div class="top-bar">
             <div class="container">
-                <h1> Kitchen 22 </h1>
+                <h1 id="kitchen-title"> Kitchen 22 </h1>
+                <div class="infobox">
+                    <div>
+                        <b>Members:</b> <span>10</span>,
+                        <b>Fridges:</b> <span>2</span>
+                    </div>
+                    <div>
+                        <b>Hobs:</b> <span>8</span>,
+                        <b>Ovens:</b> <span>2</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container">
