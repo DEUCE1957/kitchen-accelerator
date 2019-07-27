@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h1> Register for the Kitchen Accelerator </h1>
+    {% if registered %}
+        <p> Thank you for registering! </p>
+        <a href="{% url 'home' %}"> Return to Home Page</a> <br />
+    {% else %}
+        Registration Form
+        <form id ="user_form" method="post" action="{% url 'register' %}"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            {{user_form.as_p}}
+            {{profile_form.as_p}}
+
+            <input type="submit" name="submit" value="Register" />
+        </form>
+    {% endif %}
+
+</body>
+</html>

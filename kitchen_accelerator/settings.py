@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -95,6 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 6, }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -128,3 +130,13 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 # Media
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# >>> REGISTRATION <<<<
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/main/'
+LOGIN_URL = '/accounts/login'
+
+# Redirect if user does not have proper authentication
+LOGIN_URL = '/main/login'

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+    <title> Login </title>
+</head>
+
+<h1>Login to the Kitchen Accelerator</h1>
+
+<form id="login_form" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="submit" />
+    <input type="hidden" name="next" value="{{next}}" />
+</form>
+<p>
+    Not a member?
+    <a href="{% url 'registration_register" %}>Register</a>
+</p>
+
+</html>
