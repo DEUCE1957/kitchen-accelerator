@@ -14,7 +14,12 @@ def kitchen(request):
     return render(request, 'main/kitchen.html', context = context_dict)
 
 
-def kitchens(request):
+def help(request):
+    context_dict = {}
+    return render(request, 'main/placeholder.html',context=context_dict)
+
+
+def kitchen_overview(request):
     def allocation(shelves, members):
         total_cells = len(shelves)*16
         quota = round(total_cells/len(members))
@@ -31,11 +36,31 @@ def kitchens(request):
     context_dict = {"kitchens": kitchens}
     return render(request, 'main/kitchens.html', context=context_dict)
 
+
 def booking(request):
-    def make_booking():
-        return
     context_dict = {}
-    return render(request, 'main/about.html', context=context_dict)
+    return render(request, 'main/placeholder.html',context=context_dict)
+
+
+def profile(request):
+    context_dict = {}
+    return render(request, 'main/placeholder.html',context=context_dict)
+
+
+def moderator(request):
+    context_dict = {}
+    return render(request, 'main/placeholder.html',context=context_dict)
+
+
+def login(request):
+    context_dict = {}
+    return render(request, 'main/placeholder.html',context=context_dict)
+
+
+def register(request):
+    context_dict = {}
+    return render(request, 'main/placeholder.html',context=context_dict)
+
 
 def about(request):
     return render(request, 'main/about.html', context={})
