@@ -10,7 +10,7 @@ class UserProfile(models.Model):
 
     user_type = (
         ("U", "User"),
-        ("M", "Manager"),
+        ("M", "Moderator"),
     )
 
     type = models.CharField(choices=user_type, max_length=1, default='U')
