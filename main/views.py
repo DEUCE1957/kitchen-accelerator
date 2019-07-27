@@ -5,18 +5,13 @@ from django.http import HttpResponseRedirect, HttpResponse
 from main.forms import UserForm, UserProfileForm
 from main.models import *
 from django.urls import reverse
+import logging
 import datetime
 
 
 def home(request):
     context_dict = {}
     return render(request, 'main/home.html', context=context_dict)
-
-
-@login_required
-def kitchen(request):
-    context_dict = {}
-    return render(request, 'main/kitchen.html', context = context_dict)
 
 
 def help(request):
@@ -41,100 +36,62 @@ def kitchen_overview(request):
     return render(request, 'main/kitchens.html', context=context_dict)
 
 
-def kitchen(request, kitchen_id):
+def kitchen(request, kitchen_name_slug):
+    logger = logging.getLogger("mylogger")
     context_dict = {}
     try:
-        kitchen = Kitchen.objects.get(id == kitchen_id)
-        hobs = Stove.objects.get(Kitchen.id == kitchen_id)
-        ovens = Oven.objects.get(Kitchen.id == kitchen_id)
+        kitchen = Kitchen.objects.get(slug=kitchen_name_slug)
+        logger.info(kitchen.id)
+        hobs = Stove.objects.filter(kitchen=kitchen)[:]
+        ovens = Oven.objects.filter(kitchen=kitchen)[:]
 
         context_dict["hobs"] = hobs
         context_dict["ovens"] = ovens
-
-        fridges = Fridge.objects.get(Kitchen.id == kitchen_id)
+        context_dict["fridges"] = []
         noCells = 0
-        for fridge in fridges:
-            shelves = Shelf.objects.get(Fridge.id == fridge.id)
-            for shelf in shelves:
-                noCells += Cell.objects.count(Shelf.id == shelf.id)
+        for fridge in Fridge.objects.filter(kitchen=kitchen):
+            for shelf in Shelf.objects.filter(fridge=fridge):
+                noCells += Cell.objects.filter(shelf=shelf).count()
 
-        members = Members.objects.get(Kitchen.id == kitchen_id)
-        quota = round(noCells / len(members))
-
+        members = Members.objects.filter(kitchen = kitchen)
+        try:
+            quota = round(noCells / len(members))
+        except ZeroDivisionError:
+            quota = noCells
+        logging.info("Quota: "+str(quota))
         member_index, member_num = 0, 0
+
         # Allocate to member until member meets quote no. of cells
-        for fridge in fridges:
-            shelves = Shelf.objects.get(Fridge.id == fridge.id)
-            for shelf in shelves:
-                cells = Cell.objects.get(Shelf.id == shelf.id)
-                for cell in cells:
-                    cell.owner = members[member_index]
+        for fridge in Fridge.objects.filter(kitchen=kitchen):
+            logging.info("Fridge"+str(fridge))
+            fridge_contents = []
+            for shelf in Shelf.objects.filter(fridge=fridge):
+                shelf_content = []
+                for cell in Cell.objects.filter(shelf=shelf):
+                    if cell.owner is None:
+                        try:
+                            cell.owner = members[member_index]
+                        except:
+                            cell.owner = None
+                    else:
+                        print("Owner %s replaced with %s for cell %s"%(cell.owner.username,
+                                                                       members[member_index].username,
+                                                                       cell.id))
+                    cell_content = {"status": cell.full, "owner": cell.owner}
+                    shelf_content.append(cell_content)
                     member_num += 1
                     if member_num == quota:
                         member_index += 1
+                fridge_contents.append(shelf_content)
+            logger.info(str(context_dict))
+            context_dict["fridges"].append({"name": "NONAME", "contents": fridge_contents})
+
     except Kitchen.DoesNotExist:
-        pass
-        # {
-        #
-        #     hobs: [
-        #
-        #         [{
-        #
-        #             name: "my Hob",
-        #
-        #             status: "free"
-        #
-        #              type: "induction"
-        #
-        #         }, {
-        #
-        #             name: "another Hob",
-        #
-        #             status: "taken"
-        #
-        #         },
-        #
-        #             {
-        #
-        #                 name: "yet another Hob",
-        #
-        #                 status: "taken"
-        #
-        #             }],
-        #
-        #         [{
-        #
-        #             name: "single Hob",
-        #
-        #             status: "broken"
-        #
-        #         }]
-        #
-        #     ],
-        #
-        #     fridges: [{
-        #
-        #         name: "my fridge",
-        #
-        #         contents: [
-        #
-        #             [{status: "free", owner: "username"}, {status: "free", owner: "username"}],
-        #
-        #             [{status: "free", owner:"username"}, {status: "free", owner:"username"}]
-        #
-        #         ]
-        #
-        #     }],
-        #
-        #     ovens: [{
-        #
-        #         name: "my oven",
-        #
-        #         status: "taken"
-        #
-        #     }]
-        #
-        # }
+        context_dict["members"] = None
+        context_dict["fridges"] = None
+        context_dict["hobs"] = None
+        context_dict["ovens"] = None
+    return render(request, 'main/kitchen_placeholder.html', context=context_dict)
 
 
 def booking(request):
