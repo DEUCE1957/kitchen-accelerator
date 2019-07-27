@@ -104,7 +104,9 @@ body {
 }
 
 .infobox {
-    float: right;
+    padding-right: 25px;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 .status_box {

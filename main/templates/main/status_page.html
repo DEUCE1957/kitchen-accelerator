@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block head_block %}
+<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/status_page.css" />
+<script type="text/javascript" src="http://127.0.0.1:8000/static/js/status_page.js"></script>
+{% endblock %}
+
+{% block header_title_block %}Kitchen 22 Status{% endblock %}
+
+{% block body_block %}
+<div>
+    <div class="row">
+        <div class="col-sm">
+            <h3>Hobs:</h3>
+            <div class="hobs status-box box">
+            </div>
+        </div>
+        <div class="col-md">
+            <h3>Fridges:</h3>
+            <div class="fridges status-box box">
+            </div>
+        </div>
+        <div class="col-sm">
+            <h3>Ovens:</h3>
+            <div class="fridges status-box box">
+                <div class="ovens status-box box">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div>
+    <h2>People: </h2>
+    <div class="people">
+        <div id="people-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            </div>
+            <ol class="carousel-indicators">
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block right_header %}
+<div class="infobox">
+    <div>
+        <b>Members:</b> <span>10</span>,
+        <b>Fridges:</b> <span>2</span>
+    </div>
+    <div>
+        <b>Hobs:</b> <span>8</span>,
+        <b>Ovens:</b> <span>2</span>
+    </div>
+</div>
+{% endblock %}
