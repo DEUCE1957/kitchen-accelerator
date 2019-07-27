@@ -5,14 +5,14 @@ def add_stove(kitchen_id, type):
     # try:
     # define a new fridge and add it into existing kitchen
     kitchen = Kitchen.objects.get(id=kitchen_id)
-    new_stove, check = Stove.objects.get_or_create(
+    new_stove = Stove.objects.create(
         kitchen=kitchen,
         type=type)
     # increase the amount of fridges
     kitchen.stoves += 1
     # save changes to database
     new_stove.save()
-    return check
+    return True
     # except:
     #     return("Stove Already Exists")
 

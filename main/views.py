@@ -6,6 +6,7 @@ from main.forms import UserForm, UserProfileForm
 from main.models import *
 from django.urls import reverse
 import logging
+import json
 import datetime
 
 
@@ -37,33 +38,42 @@ def kitchen_overview(request):
 
 
 def kitchen(request, kitchen_name_slug):
+    def stove_to_json(stove):
+        dict = {}
+        dict["name"] = "NONAME"
+        dict["status"] = stove.free
+        return dict
+    def oven_to_json(oven):
+        dict = {}
+        dict["name"] = "NONAME"
+        dict["status"] = oven.free
+        return dict
+
     logger = logging.getLogger("mylogger")
     context_dict = {}
     try:
         kitchen = Kitchen.objects.get(slug=kitchen_name_slug)
-        logger.info(kitchen.id)
-        hobs = Stove.objects.filter(kitchen=kitchen)[:]
-        ovens = Oven.objects.filter(kitchen=kitchen)[:]
 
-        context_dict["hobs"] = hobs
-        context_dict["ovens"] = ovens
+        context_dict["hobs"]=[stove_to_json(stove) for stove in Stove.objects.filter(kitchen=kitchen)]
+        context_dict["oven"]=[oven_to_json(oven) for oven in Oven.objects.filter(kitchen=kitchen)]
         context_dict["fridges"] = []
+
         noCells = 0
         for fridge in Fridge.objects.filter(kitchen=kitchen):
+            print("Frige" + str(fridge.id))
             for shelf in Shelf.objects.filter(fridge=fridge):
                 noCells += Cell.objects.filter(shelf=shelf).count()
-
+        print(noCells)
         members = Members.objects.filter(kitchen = kitchen)
+        context_dict["members"] = [{"name":"Aaron","Picture":"/media/images/profile_pics/icon_inversed.png","username":"AAA"}]
         try:
             quota = round(noCells / len(members))
         except ZeroDivisionError:
             quota = noCells
-        logging.info("Quota: "+str(quota))
         member_index, member_num = 0, 0
 
         # Allocate to member until member meets quote no. of cells
         for fridge in Fridge.objects.filter(kitchen=kitchen):
-            logging.info("Fridge"+str(fridge))
             fridge_contents = []
             for shelf in Shelf.objects.filter(fridge=fridge):
                 shelf_content = []
@@ -83,8 +93,8 @@ def kitchen(request, kitchen_name_slug):
                     if member_num == quota:
                         member_index += 1
                 fridge_contents.append(shelf_content)
-            logger.info(str(context_dict))
             context_dict["fridges"].append({"name": "NONAME", "contents": fridge_contents})
+        print(context_dict)
 
     except Kitchen.DoesNotExist:
         context_dict["members"] = None

@@ -18,19 +18,19 @@ class MembersAdmin(admin.ModelAdmin):
 
 
 class FridgeAdmin(admin.ModelAdmin):
-    fields = ["kitchen", "full"]
+    fields = ["id","kitchen", "full"]
 
     list_display = ("kitchen", "full")
 
 
 class ShelfAdmin(admin.ModelAdmin):
-    fields = ["fridge", "full"]
+    fields = ["id","fridge", "full"]
 
     list_display = ("fridge", "full")
 
 
 class CellAdmin(admin.ModelAdmin):
-    fields = ["shelf", "full"]
+    fields = ["id","shelf", "full"]
 
     list_display = ("shelf", "full")
 

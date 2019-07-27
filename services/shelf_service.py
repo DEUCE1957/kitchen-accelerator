@@ -6,11 +6,11 @@ def add_shelf(fridge_id):
     # define a new fridge and add it into existing kitchen
     # try:
     fridge = Fridge.objects.get(id=fridge_id)
-    new_shelf, check = Shelf.objects.get_or_create(
+    new_shelf = Shelf.objects.create(
         fridge=fridge
     )
     # save changes to database
     new_shelf.save()
-    return check
+    return True
     # except:
     #     return("Shelf already exists")

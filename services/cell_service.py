@@ -5,19 +5,18 @@ def add_cell(shelf_id):
     # try:
     # define a new fridge and add it into existing kitchen
     shelf = Shelf.objects.get(id=shelf_id)
-    new_cell,check = Cell.objects.get_or_create(
+    new_cell = Cell.objects.create(
         shelf=shelf
     )
     # save changes to database
     new_cell.save()
-    return check
+    return True
     #
     # except Exception as e:
     #     return False
 
 
 def book_cell(cell_id):
-    
     print("book haha")
     
     
