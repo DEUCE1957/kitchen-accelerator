@@ -12,6 +12,7 @@ def home(request):
     context_dict = {}
     return render(request, 'main/home.html', context=context_dict)
 
+
 @login_required
 def kitchen(request):
     context_dict = {}
@@ -35,12 +36,19 @@ def kitchen_overview(request):
                 member_num += 1
                 if member_num == quota:
                     member_index += 1
-
     kitchens = Kitchen.objects.order_by('name')
     context_dict = {"kitchens": kitchens}
     return render(request, 'main/kitchens.html', context=context_dict)
 
+def kitchen(request, kitchen_id):
+    try:
+        kitchen = Kitchen.objects.get(id==kitchen_id)
+        fridges = Fridge.objects.get(Kitchen.id == kitchen_id)
+        for fridge in fridges:
+            Shelf.objects.get(Fridge.id == fridge.id)
 
+    except:
+        pass
 def booking(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)
@@ -54,6 +62,7 @@ def profile(request):
 def moderator(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)
+
 
 def register(request):
     registered = False
@@ -88,6 +97,7 @@ def register(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)
 
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -111,9 +121,11 @@ def user_login(request):
 def about(request):
     return render(request, 'main/about.html', context={})
 
+
 @login_required
 def restricted(request):
     return HttpResponse("You've discovered a secret!")
+
 
 @login_required
 def user_logout(request):
