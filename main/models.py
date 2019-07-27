@@ -1,21 +1,16 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contribut.auth.models import User
 import uuid
 
 
-# define User-table
-class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    first_name = models.CharField(max_length=64, null=False)
-    last_name = models.CharField(max_length=64, null=False)
-    password = models.CharField(max_length=128, null=False)
-    email = models.EmailField(max_length=64, null=False)
-    profile_picture = models.ImageField(upload_to='images/profile_pics', height_field=None, width_field=None, max_length=64, null=False, default='/images/default_profile_pic.jpg')
-    #slug = models.SlugField()
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.id)
-        super(User, self).save(*args,**kwargs)
+    picture = models.ImageField(upload_to='profile_pics', height_field=None, width_field=None, max_length=64, null=False, default='profile_pics/default.png')
+
+    def __str__(self):
+        return self.user.username
 
 
 # define Kitchen-table
