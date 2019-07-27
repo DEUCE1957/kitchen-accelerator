@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<!-- {% load staticfiles %} -->
+
+<html>
+
+    <head>
+        <title> Your Kitchen </title>
+
+        <title>The Kitchen Accelerator</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./css/kitchen.css"/>
+        <link rel="stylesheet" href="./css/common.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="js/kitchens.js"></script>
+    </head>
+
+    <body>
+        <div class="top-bar">
+            <div class="container">
+                <h1 class="title"> Kitchen 22 </h1>
+                <div class="infobox">
+                    <div>
+                        <b>Members:</b> <span>10</span>,
+                        <b>Fridges:</b> <span>2</span>
+                    </div>
+                    <div>
+                        <b>Hobs:</b> <span>8</span>,
+                        <b>Ovens:</b> <span>2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                <div class="row">
+                    <div class="col-sm">
+                        <h3>Hobs:</h3>
+                        <div class="hobs status-box box">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <h3>Fridges:</h3>
+                        <div class="fridges status-box box">
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h3>Ovens:</h3>
+                        <div class="fridges status-box box">
+                            <div class="ovens status-box box">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <h2>People: </h2>
+                <div class="people">
+                    <div id="people-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#people-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#people-carousel" data-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman I
+                                </div>
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman II
+                                </div>
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman III
+                                </div>
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman IV
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman I new
+                                </div>
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman II
+                                </div>
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman III
+                                </div>
+                                <div class="profile">
+                                    <div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+                                        &nbsp;
+                                    </div>
+                                    Tom Hickman IV
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
