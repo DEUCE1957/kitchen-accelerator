@@ -40,15 +40,103 @@ def kitchen_overview(request):
     context_dict = {"kitchens": kitchens}
     return render(request, 'main/kitchens.html', context=context_dict)
 
-def kitchen(request, kitchen_id):
-    try:
-        kitchen = Kitchen.objects.get(id==kitchen_id)
-        fridges = Fridge.objects.get(Kitchen.id == kitchen_id)
-        for fridge in fridges:
-            Shelf.objects.get(Fridge.id == fridge.id)
 
-    except:
+def kitchen(request, kitchen_id):
+    context_dict = {}
+    try:
+        kitchen = Kitchen.objects.get(id == kitchen_id)
+        hobs = Stove.objects.get(Kitchen.id == kitchen_id)
+        ovens = Oven.objects.get(Kitchen.id == kitchen_id)
+
+        context_dict["hobs"] = hobs
+        context_dict["ovens"] = ovens
+
+        fridges = Fridge.objects.get(Kitchen.id == kitchen_id)
+        noCells = 0
+        for fridge in fridges:
+            shelves = Shelf.objects.get(Fridge.id == fridge.id)
+            for shelf in shelves:
+                noCells += Cell.objects.count(Shelf.id == shelf.id)
+
+        members = Members.objects.get(Kitchen.id == kitchen_id)
+        quota = round(noCells / len(members))
+
+        member_index, member_num = 0, 0
+        # Allocate to member until member meets quote no. of cells
+        for fridge in fridges:
+            shelves = Shelf.objects.get(Fridge.id == fridge.id)
+            for shelf in shelves:
+                cells = Cell.objects.get(Shelf.id == shelf.id)
+                for cell in cells:
+                    cell.owner = members[member_index]
+                    member_num += 1
+                    if member_num == quota:
+                        member_index += 1
+    except Kitchen.DoesNotExist:
         pass
+        # {
+        #
+        #     hobs: [
+        #
+        #         [{
+        #
+        #             name: "my Hob",
+        #
+        #             status: "free"
+        #
+        #              type: "induction"
+        #
+        #         }, {
+        #
+        #             name: "another Hob",
+        #
+        #             status: "taken"
+        #
+        #         },
+        #
+        #             {
+        #
+        #                 name: "yet another Hob",
+        #
+        #                 status: "taken"
+        #
+        #             }],
+        #
+        #         [{
+        #
+        #             name: "single Hob",
+        #
+        #             status: "broken"
+        #
+        #         }]
+        #
+        #     ],
+        #
+        #     fridges: [{
+        #
+        #         name: "my fridge",
+        #
+        #         contents: [
+        #
+        #             [{status: "free", owner: "username"}, {status: "free", owner: "username"}],
+        #
+        #             [{status: "free", owner:"username"}, {status: "free", owner:"username"}]
+        #
+        #         ]
+        #
+        #     }],
+        #
+        #     ovens: [{
+        #
+        #         name: "my oven",
+        #
+        #         status: "taken"
+        #
+        #     }]
+        #
+        # }
+
+
 def booking(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)

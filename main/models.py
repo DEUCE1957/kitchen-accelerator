@@ -60,7 +60,7 @@ class Members(models.Model):
         Kitchen, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = (('user_id', 'kitchen_id'),)
+        unique_together = (('user', 'kitchen'),)
         verbose_name_plural = 'Members'
 
 
