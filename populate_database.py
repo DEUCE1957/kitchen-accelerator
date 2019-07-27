@@ -5,9 +5,12 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from main.models import *
-from services import user_service, kitchen_service
+from services import user_service, kitchen_service, fridge_service, shelf_service, cell_service, oven_service, stove_service
+from django.db.models.query import QuerySet
+
 
 def populate():
+    # create dummyusers
     users = [{"first_name":"John",
               "last_name":"Von Neumann",
               "username" : "jonvonneu",
@@ -34,6 +37,7 @@ def populate():
               "profile_picture": 'default.jpg'}
              ]
              
+    # call add-function from user_service
     for u in users:
         print(add_user(
             u["first_name"],
@@ -43,7 +47,7 @@ def populate():
             u["email"],
             u["profile_picture"]))
 
-    # define Kitchen-table
+    # create dummykitchens
     kitchens = [{"location":"Bl38",
                  "name":"The Ultimate Kitchen"},
                 {"location": "Bl500",
@@ -51,10 +55,40 @@ def populate():
                 {"location": "Bl10",
                  "name": "Enter my LEIR"}
                 ]
+                
+    # call add-function from kitchen_service
     for k in kitchens:
         print(add_kitchen(
         k["location"],
         k["name"]))
+        
+    # add 5 fridges to every kitchen
+    for k in Kitchen.objects.all():
+        for f in range(5):
+            add_fridge(k.id)    
+        
+    # add 6 shelves into every fridge
+    for fridge in Fridge.objects.all():
+        for s in range(6):
+            add_shelf(fridge.id)
+        
+    # add 4 cells into every shelf
+    for shelf in Shelf.objects.all():
+        for c in range(6):
+            add_cell(shelf.id)
+            
+    # add 4 ovens into every kitchen
+    for k in Kitchen.objects.all():
+        add_oven(k.id)
+       
+
+    # add 2 induction stoves and 2 electric stoves to every kitchen
+    for k in Kitchen.objects.all():
+        for i in range(2):
+            add_stove(k.id, "induction")
+            add_stove(k.id, "electric")
+        
+        
         
 if __name__ == '__main__':
     print "Starting Rango population script..."
