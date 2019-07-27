@@ -130,9 +130,16 @@ function setCurrentKitchenStatus(status){
 }
 
 async function populateCurrentKitchenStatus(){
+    // NOTE: this needs to be the actual kitchen
     setCurrentKitchenStatus(
-        (await (await fetch("http://127.0.0.1:8000/main/kitchen/the-ultimate-kitchen")).json())
+        (await (await fetch(`http://127.0.0.1:8000/main/kitchen/the-ultimate-kitchen`)).json())
     )
+
+    setInterval(async () => {
+        setCurrentKitchenStatus(
+            (await (await fetch(`http://127.0.0.1:8000/main/kitchen/the-ultimate-kitchen`)).json())
+        )
+    }, 5000);
 }
 
 function onCarouselNext(newSlide){
