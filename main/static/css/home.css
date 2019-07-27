@@ -1,0 +1,46 @@
+body{
+    background-color: black;
+    text-align: center;
+}
+
+kitchen-groupbody {
+    /*
+    background-image: url(./Kitchen_Accelerator.png);
+    background-size: cover;
+    background-position-y: 30px;
+    background-repeat: no-repeat;*/
+    background-color: black;
+
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 4px;
+    padding-top: 14px;
+    position: relative;
+    left: -70px;
+    font-size: 53px;
+}
+
+img {
+    width: 100%;
+}
+
+.my-button {
+    position: fixed;
+    left: 40%;
+    padding: 15px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.button-container{
+    position: relative;
+}
+
+.my-container {
+    padding-top: 20px;
+}
