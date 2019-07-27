@@ -1,0 +1,21 @@
+.top-bar {
+    background-color: #404040;
+    padding-top: 7px;
+    padding-bottom: 2px;
+    margin-bottom: 15px;
+}
+
+.title {
+    display: inline-block;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    text-shadow: 0px 0px 1px #c78989;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input[type=email]{
+    max-width: 400px;
+}
