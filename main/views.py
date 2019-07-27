@@ -3,9 +3,14 @@ from django.http import HttpResponse
 import datetime
 
 
-def index(request):
-    context_dict = {'boldmessage': 'Crunchy, creamy, cookie, candy, cupcake!'}
-    return render(request, 'main/index.html', context=context_dict)
+def home(request):
+    context_dict = {}
+    return render(request, 'main/home.html', context=context_dict)
+
+
+def kitchen(request):
+    context_dict = {}
+    return render(request, 'main/kitchen.html', context = context_dict)
 
 
 def about(request):
