@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 import uuid
 
 
@@ -10,6 +11,11 @@ class User(models.Model):
     password = models.CharField(max_length=128, null=False)
     email = models.CharField(max_length=64, null=False)
     profile_picture = models.CharField(max_length=64)
+    slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.id)
+        super(User, self).save(*args,**kwargs)
 
 
 # define Kitchen-table
@@ -20,6 +26,11 @@ class Kitchen(models.Model):
     fridges = models.IntegerField(default=0)
     ovens = models.IntegerField(default=0)
     stoves = models.IntegerField(default=0)
+    slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.id)
+        super(Kitchen, self).save(*args, **kwargs)
 
 
 # define Members-relation
