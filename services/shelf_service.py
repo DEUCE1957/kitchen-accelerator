@@ -1,13 +1,16 @@
 from django.db.models.query import QuerySet
 from main.models import *
 
+
 def add_shelf(fridge_id):
-    try:
-        # define a new fridge and add it into existing kitchen
-        new_shelf = Shelf.objects.create(
-            fridge = Fridge.objects.get(id=fridge_id)
-        )
-        # save changes to database
-        new_shelf.save()
-    except Exception as e:
-        return False
+    # define a new fridge and add it into existing kitchen
+    # try:
+    fridge = Fridge.objects.get(id=fridge_id)
+    new_shelf, check = Shelf.objects.get_or_create(
+        fridge=fridge
+    )
+    # save changes to database
+    new_shelf.save()
+    return check
+    # except:
+    #     return("Shelf already exists")

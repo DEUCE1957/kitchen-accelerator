@@ -3,7 +3,7 @@ from main.models import UserProfile, Kitchen, Members, Fridge, Shelf, Cell, Oven
 
 class KitchenAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields":["name","location"]}),
+        (None, {"fields":["name","location","slug"]}),
         ("Information", { "fields": ["fridges", "ovens", "stoves"]}),
     ]
 

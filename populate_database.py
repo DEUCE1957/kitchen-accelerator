@@ -47,7 +47,7 @@ def populate():
             u["email"],
             u["profile_picture"]))
 
-    # create dummykitchens
+    # create dummy kitchens
     kitchens = [{"location":"Bl38",
                  "name":"The Ultimate Kitchen"},
                 {"location": "Bl500",
@@ -58,6 +58,7 @@ def populate():
                 
     # call add-function from kitchen_service
     for k in kitchens:
+        print("KITCHEN")
         print(kitchen_service.add_kitchen(
         k["location"],
         k["name"]))
@@ -65,32 +66,30 @@ def populate():
     # add 5 fridges to every kitchen
     for k in Kitchen.objects.all():
         for f in range(5):
-            print("fridge add" + fridge_service.add_fridge(k.id))
+            print("fridge add" + str(fridge_service.add_fridge(k.id)))
         
     # add 6 shelves into every fridge
     for fridge in Fridge.objects.all():
         for s in range(6):
-            print("shelf add" + shelf_service.add_shelf(fridge.id))
+            print("shelf add" + str(shelf_service.add_shelf(fridge.id)))
         
     # add 4 cells into every shelf
     for shelf in Shelf.objects.all():
         for c in range(6):
-            print("cell add" + cell_service.add_cell(shelf.id))
+            print("cell add" + str(cell_service.add_cell(shelf.id)))
             
     # add 4 ovens into every kitchen
     for k in Kitchen.objects.all():
         for o in range(4):
-            print("oven add" + oven_service.add_oven(k.id))
-       
+            print("oven add" + str(oven_service.add_oven(k.id)))
 
     # add 2 induction stoves and 2 electric stoves to every kitchen
     for k in Kitchen.objects.all():
         for i in range(2):
-            print("induction stove add" + stove_service.add_stove(k.id, "induction"))
-            print("electric stove add" + stove_service.add_stove(k.id, "electric"))
+            print("induction stove add" + str(stove_service.add_stove(k.id, "induction")))
+            print("electric stove add" + str(stove_service.add_stove(k.id, "electric")))
 
-        
-        
+
 if __name__ == '__main__':
     print("Starting kitchen population script...")
     populate()
