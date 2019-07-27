@@ -51,13 +51,13 @@ function to add cells into the database.
 
 returns boolean value depending on if the add was succesful
 
-### book_cell
+### book_cell(cell_id)
 function to set an owner for the cell and cell.full = true . Checks all the cells in the shelf are full and sets the shelf full.
 
 returns boolean value depending if the set was succesful
 
 
-### free_cell
+### free_cell(cell_id)
 function to set cell.full = false. Checks if the shelf is full and sets the shelf not full.
 
 returns boolean value depending if the set was succesful
