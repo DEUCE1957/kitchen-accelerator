@@ -137,6 +137,3 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/main/'
 LOGIN_URL = '/accounts/login'
-
-# Redirect if user does not have proper authentication
-LOGIN_URL = '/main/login'
