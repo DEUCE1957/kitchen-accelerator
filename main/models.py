@@ -52,7 +52,7 @@ class Kitchen(models.Model):
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.id)
+        unique_slugify(self,self.name) #sets slug
         super(Kitchen, self).save(*args, **kwargs)
 
 

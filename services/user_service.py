@@ -8,7 +8,7 @@ from main.models import *
 def add_user(firstname, lastname, username, password, email, profilepicture):
     try:
         # create a new user with given variables
-        new_user = UserProfile.objects.get_or_create(
+        new_user, check = UserProfile.objects.get_or_create(
             user=User.objects.create(
                 first_name=firstname,
                 last_name=lastname,
@@ -18,7 +18,7 @@ def add_user(firstname, lastname, username, password, email, profilepicture):
             picture=profilepicture)[0]
         # save changes to database
         new_user.save()
-        return True
+        return check
     except:
         return("User already exists")
 
