@@ -36,3 +36,14 @@ hr {
     padding-right: 10px;
     padding-left: 10px;
 }
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    display: inline-block;
+    vertical-align: middle;
+}

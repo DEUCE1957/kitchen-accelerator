@@ -11,23 +11,42 @@ body {
 }
 
 
-.kitchen-unit{
-    background-color: antiquewhite;
+.hob{
     width: 80px;
     height: 80px;
     margin: 3px;
     padding: 5px;
     text-align: center;
-    border-radius: 3px;
-    /* color: black; */
+    border-radius: 54px;
+    display: table;
 }
 
-.kitchen-group {
+.hob div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.hob-group {
     border: solid 2px black;
     display: inline-block;
     border-radius: 3px;
     margin: 5px;
     background-color: #2b272b;
+}
+
+.oven {
+    width: 130px;
+    height: 80px;
+    margin: 3px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 3px;
+    display: inline-table;
+}
+
+.oven div {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .broken {
