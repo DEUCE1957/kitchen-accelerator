@@ -54,9 +54,9 @@ class Kitchen(models.Model):
 
 # define Members-relation
 class Members(models.Model):
-    user_id = models.OneToOneField(
+    user = models.OneToOneField(
         User, on_delete=models.CASCADE)
-    kitchen_id = models.OneToOneField(
+    kitchen = models.OneToOneField(
         Kitchen, on_delete=models.CASCADE)
 
     class Meta:
