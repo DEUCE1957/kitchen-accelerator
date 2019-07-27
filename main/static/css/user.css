@@ -1,0 +1,14 @@
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.name {
+    padding-left: 20px;
+}

@@ -19,3 +19,20 @@ body {
 input[type=email]{
     max-width: 400px;
 }
+
+hr {
+    background-color: #565656;
+}
+
+.box{
+    border: solid 1px #383838;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #444343;
+    overflow: overlay;
+}
+
+.col-, .col-lg{
+    padding-right: 10px;
+    padding-left: 10px;
+}

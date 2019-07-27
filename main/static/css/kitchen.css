@@ -30,15 +30,6 @@ body {
     background-color: #2b272b;
 }
 
-.status-box{
-    margin-top: 10px;
-    border: solid 1px #383838;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: #444343;
-    overflow: overlay;
-}
-
 .broken {
     background-color: #7d7d7d;
     border: solid 3px #a9a8a8;
@@ -89,4 +80,8 @@ body {
 
 .infobox {
     float: right;
+}
+
+.status_box {
+    margin-top: 10px;
 }
