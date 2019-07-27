@@ -20,14 +20,23 @@
     <body>
         <div class="top-bar">
             <div class="container">
+                <img class="icon" src="./images/icon_noBackground.png" />
                 <h1 class="title"> Edit Profile </h1>
+                <div class="right-hand-side">
+                    <button class="btn btn-outline-primary">Log out</button>
+                </div>
             </div>
         </div>
         <div class="container">
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="me@mail.com">
+                    <label for="exampleInputEmail1">Name:</label>
+                    <input type="email" class="form-control" placeholder="Enter your name"
+                    value="Tom Hickman">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address:</label>
+                    <input type="email" class="form-control" placeholder="Enter your name" value="me@mail.com">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Profile Picture:</label>
@@ -38,6 +47,7 @@
                         <input type="file" />
                     </p>
                 </div>
+                <br />
                 <button type="submit" class="btn btn-outline-primary">Submit</button>
             </form>
         </div>
