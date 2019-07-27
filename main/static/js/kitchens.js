@@ -80,7 +80,14 @@ function setCurrentKitchenStatus(status){
                             fridgeRow.map(fridgeSlot => 
                                 /*html*/`
                                 <div ${fridgeSlot.status == "taken"?`data-owner="${fridgeSlot.owner}"`:""}
-                                     class="fridge-slot ${fridgeSlot.status}">&nbsp;</div>
+                                     class="fridge-slot ${fridgeSlot.status}"
+                                     ${
+                                        fridgeSlot.status == "taken" ? `
+                                        data-toggle="popover" data-trigger="hover"
+                                        data-content=${fridgeSlot.owner}
+                                        `:""
+                                     }>&nbsp;</div>
+                                     
                                 `
                             ).join("\n")
                         }
@@ -102,11 +109,16 @@ function setCurrentKitchenStatus(status){
         `
     ).join("\n");
 
-    $('#people-carousel').on('slid.bs.carousel', (ev) => {
-        onCarouselNext(ev.to);
-    })
-
-    onCarouselNext(0);
+    document.querySelector(".infobox").innerHTML = /*html*/`
+        <div>
+            <b>Members:</b> <span>${people.length}</span>,
+            <b>Fridges:</b> <span>${status.fridges.length}</span>
+        </div>
+        <div>
+            <b>Hobs:</b> <span>${status.hobs.length}</span>,
+            <b>Ovens:</b> <span>${status.ovens.length}</span>
+        </div>
+    `
 }
 
 function onCarouselNext(newSlide){
@@ -121,7 +133,7 @@ function onCarouselNext(newSlide){
         const ownedItems = document.querySelectorAll(`*[data-owner=${person.username}]`);
         ownedItems.forEach(x => {
             x.style["border-color"] = color;
-            x.style["box-shadow"] = `inset ${color} 0px 0px 7px 2px`;
+            x.style["box-shadow"] = `inset ${color} 0px 0px 5px 1px`;
         });
     })
 }
@@ -197,6 +209,16 @@ $(() => {
         }]
     })
 
-    setPeople(peopleGroups)
+    setPeople(peopleGroups);
+
+    $('#people-carousel').on('slid.bs.carousel', (ev) => {
+        onCarouselNext(ev.to);
+    })
+
+    onCarouselNext(0);
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
 })
 
