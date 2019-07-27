@@ -79,7 +79,8 @@ def populate():
             
     # add 4 ovens into every kitchen
     for k in Kitchen.objects.all():
-        add_oven(k.id)
+        for o in range(4):
+            add_oven(k.id)
        
 
     # add 2 induction stoves and 2 electric stoves to every kitchen
