@@ -6,7 +6,6 @@ from main.models import *
 
 def add_user(firstname, lastname, username, password, email, profilepicture):
     # create a new user with given variables
-    print("add user")
     try:
         new_user = UserProfile.objects.create(
             user = User.objects.create(
@@ -17,9 +16,7 @@ def add_user(firstname, lastname, username, password, email, profilepicture):
                 email = email),
             picture=profilepicture)
         # save changes to database
-        print("new user done")
         new_user.save()
-        print("new user saved")
         return True
     except Exception as e:
         return False
