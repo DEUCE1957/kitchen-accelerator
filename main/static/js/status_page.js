@@ -56,7 +56,7 @@ function getTakenExtraHTML(object){
 }
 
 function setCurrentKitchenStatus(status){
-    document.querySelector(".hobs").innerHTML = status.hobs.map(
+    document.querySelector(".hobs").innerHTML = chunk(status.hobs, 2).map(
         hobGroup => /*html*/`
         <div class="hob-group">
         ${
@@ -130,7 +130,9 @@ function setCurrentKitchenStatus(status){
 }
 
 async function populateCurrentKitchenStatus(){
-    await fetch("http://127.0.0.1:8000/")
+    setCurrentKitchenStatus(
+        (await (await fetch("http://127.0.0.1:8000/main/kitchen/the-ultimate-kitchen")).json())
+    )
 }
 
 function onCarouselNext(newSlide){
@@ -181,7 +183,11 @@ function setPeople(peopleChunks){
 
 
 $(() => {
-    setCurrentKitchenStatus({
+    populateCurrentKitchenStatus();
+    setInterval(1000, () => {
+        populateCurrentKitchenStatus();
+    })
+    /*setCurrentKitchenStatus({
         hobs: [
             [{
                 name: "my Hob",
@@ -221,7 +227,7 @@ $(() => {
             name: "another oven",
             status: true
         }]
-    })
+    })*/
 
     setPeople(peopleGroups);
 

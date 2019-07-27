@@ -64,7 +64,7 @@ def kitchen(request, kitchen_name_slug):
         kitchen = Kitchen.objects.get(slug=kitchen_name_slug)
 
         context_dict["hobs"]=[stove_to_json(stove) for stove in Stove.objects.filter(kitchen=kitchen)]
-        context_dict["oven"]=[oven_to_json(oven) for oven in Oven.objects.filter(kitchen=kitchen)]
+        context_dict["ovens"]=[oven_to_json(oven) for oven in Oven.objects.filter(kitchen=kitchen)]
         context_dict["fridges"] = []
 
         noCells = 0
@@ -110,7 +110,7 @@ def kitchen(request, kitchen_name_slug):
         context_dict["fridges"] = None
         context_dict["hobs"] = None
         context_dict["ovens"] = None
-    return render(request, 'main/kitchen_placeholder.html', context=context_dict)
+    return render(request, 'main/kitchen_placeholder.html', context={"json": json.dumps(context_dict)})
 
 
 def booking(request):

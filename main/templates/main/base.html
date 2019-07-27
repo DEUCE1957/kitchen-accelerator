@@ -18,11 +18,28 @@
 <body>
     <div class="top-bar">
         <div class="container">
-            <img class="icon" src="http://127.0.0.1:8000/static/images/icon_noBackground.png" />
-            <h1 class="title"> {% block header_title_block %}{% endblock %} </h1>
-            <div class="right-hand-side">
-                {% block right_header %}{% endblock %}
-                <button class="btn btn-outline-primary">Log out</button>
+            <div>
+                <a href="/">
+                    <img class="icon" src="http://127.0.0.1:8000/static/images/icon_noBackground.png" />
+                </a>
+                <h1 class="title"> {% block header_title_block %}{% endblock %} </h1>
+                <div class="right-hand-side">
+                    {% block right_header %}{% endblock %}
+                    <button class="btn btn-outline-primary">Log out</button>
+                </div>
+            </div>
+            <div>
+                <ul style="padding-bottom: 5px" class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

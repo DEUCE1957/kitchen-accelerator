@@ -1,4 +1,4 @@
-input[type=text], input[type=password]{
+input[type=text], input[type=password], input[type=email]{
     display: block;
     width: 100%;
     padding: .375rem .75rem;
@@ -15,9 +15,19 @@ input[type=text], input[type=password]{
 }
 
 label {
-    width: 100px;
+    width: 150px;
+    vertical-align: middle;
 }
 
 form {
     padding-left: 10px;
+}
+
+.helptext, ul {
+    display: block;
+    padding-left: 10px;
+    color: grey;
+    font-size: 13px;
+    padding-top: 8px;
+    list-style-type: lower-roman;
 }
