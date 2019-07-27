@@ -1,4 +1,4 @@
-import django.ocntrib.auth.hashers
+import django.contrib.auth.hashers
 from django.db.models.query import QuerySet
 
 from main.models import *
@@ -9,7 +9,7 @@ def add_user(firstname, lastname, password, email, profilepicture):
         new_user = UserProfile.objects.create(
             first_name=firstname,
             last_name=lastname,
-            password = make_password(password)
+            password = make_password(password),
             email=email,
             picture=profilepicture)
         # save changes to database

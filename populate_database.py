@@ -39,7 +39,7 @@ def populate():
              
     # call add-function from user_service
     for u in users:
-        print(add_user(
+        print(user_service.add_user(
             u["first_name"],
             u["last_name"],
             u["username"],
@@ -58,39 +58,39 @@ def populate():
                 
     # call add-function from kitchen_service
     for k in kitchens:
-        print(add_kitchen(
+        print(kitchen_service.add_kitchen(
         k["location"],
         k["name"]))
         
     # add 5 fridges to every kitchen
     for k in Kitchen.objects.all():
         for f in range(5):
-            add_fridge(k.id)    
+            fridge_service.add_fridge(k.id)
         
     # add 6 shelves into every fridge
     for fridge in Fridge.objects.all():
         for s in range(6):
-            add_shelf(fridge.id)
+            shelf_service.add_shelf(fridge.id)
         
     # add 4 cells into every shelf
     for shelf in Shelf.objects.all():
         for c in range(6):
-            add_cell(shelf.id)
+            cell_service.add_cell(shelf.id)
             
     # add 4 ovens into every kitchen
     for k in Kitchen.objects.all():
         for o in range(4):
-            add_oven(k.id)
+            oven_service.add_oven(k.id)
        
 
     # add 2 induction stoves and 2 electric stoves to every kitchen
     for k in Kitchen.objects.all():
         for i in range(2):
-            add_stove(k.id, "induction")
-            add_stove(k.id, "electric")
-        
+            stove_service.add_stove(k.id, "induction")
+            stove_service.add_stove(k.id, "electric")
+
         
         
 if __name__ == '__main__':
-    print "Starting Rango population script..."
+    print("Starting Rango population script...")
     populate()
