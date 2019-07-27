@@ -20,12 +20,18 @@ function to add kitchen into the database.
 
 returns boolean value depending on if the add was succesful
 
+### delete_kitchen
+function to delete a kitchen from the database. Removing a kitchen will cascade onto fridges, ovens and stoves in the kitchen.
+
 ## Fridge
 Functions to modify fridge information in the database
 ### add_fridge
 function to add fridges into the database.
 
 returns boolean value depending on if the add was succesful
+
+### delete_fridge
+function to remove fridges from the database. Removing will cascade onto shelves and cells associated with the fridge.
 
 
 
@@ -44,6 +50,17 @@ Functions to modify cell information in the database
 function to add cells into the database.
 
 returns boolean value depending on if the add was succesful
+
+### book_cell
+function to set an owner for the cell and cell.full = true . Checks all the cells in the shelf are full and sets the shelf full.
+
+returns boolean value depending if the set was succesful
+
+
+### free_cell
+function to set cell.full = false. Checks if the shelf is full and sets the shelf not full.
+
+returns boolean value depending if the set was succesful
 
 
 ## Oven
