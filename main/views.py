@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect, HttpResponse
 from main.forms import UserForm, UserProfileForm
 from main.models import *
+from django.urls import reverse
 import datetime
 
 
@@ -52,12 +54,6 @@ def moderator(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)
 
-
-def login(request):
-    context_dict = {}
-    return render(request, 'main/placeholder.html',context=context_dict)
-
-
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -91,6 +87,23 @@ def register(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username,password=password)
 
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                return HttpResponse('Your Account is disabled')
+        else:
+            print("Invalid Login Details: %s, %s"%(username,password))
+            return HttpResponse("Invalid login details supplied")
+
+    else:
+        return render(request,'main/login.html')
 def about(request):
     return render(request, 'main/about.html', context={})
