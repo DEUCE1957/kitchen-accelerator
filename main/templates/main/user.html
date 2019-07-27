@@ -1,0 +1,104 @@
+{% extends 'main/base.html' %}
+
+{% block head_block %}
+<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/status_page.css" />
+<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/user.css" />
+<script>
+    function getRndStatus(){
+        const rndNum = Math.random();
+        if(rndNum > 0.5) return "taken"
+        else if(rndNum > 0.1) return "free"
+        else return "broken"
+    }
+
+
+    $(() => {
+        Array.from(document.querySelectorAll(".fridge-content")).map(x => {
+            x.innerHTML = [...Array(6).keys()].map(x => {
+                return /*html*/`
+                <div class="fridge-row">
+                    <div class="fridge-slot ${getRndStatus()}">&nbsp;</div>
+                    <div class="fridge-slot ${getRndStatus()}">&nbsp;</div>
+                </div>
+                `
+            }).join("\n")
+        })
+    })
+</script>
+{% endblock %}
+{% block header_title_block %}User Status{% endblock %}
+
+{% block body_block %}
+<div class="profile-pic" style="background-image: url(images/expanded_photo_tkh.jpg)">
+    &nbsp;
+</div>
+<span class="name">Tom Hickman <a href="#">(edit profile)</a></span>
+<hr />
+<div>
+    <div class="row">
+        <div class="col-">
+            <div class="box">
+                <h3>Upcoming bookings:</h3>
+                <h7><b>Kitchen 22:</b></h7>
+                <div>20/12/2018 12:00-13:00</div>
+                <div>21/12/2018 12:00-13:00</div>
+                <br>
+                <h7><b>Kitchen 38:</b></h7>
+                <div>20/12/2018 12:00-13:00</div>
+                <div>21/12/2018 12:00-13:00</div>
+            </div>
+        </div>
+        <div class="col-">
+            <div class="box">
+                <h3>Member Lists:</h3>
+                <h7><b>Kitchen 22:</b></h7>
+                <div>John Smith - <a href="#">remove</a></div>
+                <div>John Doe - <a href="#">remove</a></div>
+                <div>John Doe - <a href="#">remove</a></div>
+                <div><a href="#">email all</a></div>
+                <div><a href="#">add more</a></div>
+                <br>
+                <h7><b>Kitchen IdeaSquare:</b></h7>
+                <div>John Smith - <a href="#">remove</a></div>
+                <div>John Doe - <a href="#">remove</a></div>
+                <div><a href="#">email all</a></div>
+                <div><a href="#">add more</a></div>
+            </div>
+        </div>
+        <div class="col-lg">
+            <div class="box">
+                <h3 style="padding-bottom: 10px;">Fridges:</h3>
+                <div>
+                    <h5>Building 22</h5>
+                    <div class="fridges box">
+                        <div class="fridge">
+                            <h7>Fridge 1</h7>
+                            <div class="fridge-content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <h5>Building 23</h5>
+                    <div class="fridges box">
+                        <div class="fridge">
+                            <h7>Fridge 1</h7>
+                            <div class="fridge-content">
+
+                            </div>
+                        </div>
+                        <div class="fridge">
+                            <h7>Fridge 2</h7>
+                            <div class="fridge-content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
