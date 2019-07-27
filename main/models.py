@@ -22,7 +22,7 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-#Model manager for Proxy model (UserModerator)
+# Model manager for Proxy model (UserModerator)
 class UserModeratorManager(models.Manager):
     def get_queryset(self):
         return super(UserModeratorManager, self).get_queryset().filter(type='M')
