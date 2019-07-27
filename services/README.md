@@ -46,7 +46,7 @@ returns boolean value depending on if the add was succesful
 
 ## Cell
 Functions to modify cell information in the database
-### add_cell
+### add_cell(shelf_id)
 function to add cells into the database.
 
 returns boolean value depending on if the add was succesful
@@ -65,15 +65,26 @@ returns boolean value depending if the set was succesful
 
 ## Oven
 Functions to modify oven information in the database
-### add_oven
+### add_oven(fridge_id)
 function to add ovens into the database.
 
 returns boolean value depending on if the add was succesful
 
+### delete_oven(oven_id)
+function to remove ovens from the database.
+
+returns boolean value depending on if the deletion was succesful.
+
 
 ## Stove
 Functions to modify stove information in the database
-### add_stove
+### add_stove(fridge_id)
 function to add stoves into the database.
 
 returns boolean value depending on if the add was succesful
+
+
+### delete_stove(stove_id)
+function to remove stoves from the database.
+
+returns boolean value depending on if the deletion was succesful.
