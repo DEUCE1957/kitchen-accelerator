@@ -3,15 +3,16 @@ from main.models import *
 
 
 def add_kitchen(location, name):
-    try:
-        # define a new kitchen to add
-        new_kitchen = Kitchen.objects.get_or_create(
-            location=location,
-            name=name)[0]
-        # save changes to database
-        new_kitchen.save()
-    except:
-        return("Kitchen already exists")
+    # try:
+    # define a new kitchen to add
+    new_kitchen = Kitchen.objects.get_or_create(
+        location=location,
+        name=name)[0]
+    # save changes to database
+    new_kitchen.save()
+    return True
+    # except:
+    #     return("Kitchen already exists")
         
         
 def add_member(user_id, kitchen_id):

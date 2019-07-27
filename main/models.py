@@ -49,7 +49,7 @@ class Kitchen(models.Model):
     fridges = models.IntegerField(default=0)
     ovens = models.IntegerField(default=0)
     stoves = models.IntegerField(default=0)
-    #slug = models.SlugField()
+    slug = models.SlugField()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.id)
@@ -87,7 +87,7 @@ class Cell(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shelf = models.ForeignKey(Shelf, on_delete=models.CASCADE, null=False)
     full = models.BooleanField(default=False)
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
 
 
 # define Oven-table
