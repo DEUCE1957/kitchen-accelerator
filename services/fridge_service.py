@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from main.models import *
 
 def add_fridge(kitchen_id):
