@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.contribut.auth.models import User
+from django.contribu.auth.models import User
 import uuid
 
 
