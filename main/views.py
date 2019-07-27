@@ -33,7 +33,7 @@ def kitchens(request):
 
 def booking(request):
     def make_booking():
-
+        return
     context_dict = {}
     return render(request, 'main/about.html', context=context_dict)
 
