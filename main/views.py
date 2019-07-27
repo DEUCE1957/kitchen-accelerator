@@ -19,6 +19,16 @@ def kitchen(request):
     return render(request, 'main/kitchen.html', context = context_dict)
 
 
+def status(request):
+    context_dict = {}
+    return render(request, 'main/status_page.html', context = context_dict)
+
+
+def user(request):
+    context_dict = {}
+    return render(request, 'main/user.html', context = context_dict)
+
+
 def help(request):
     context_dict = {}
     return render(request, 'main/placeholder.html',context=context_dict)

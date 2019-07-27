@@ -6,5 +6,7 @@ urlpatterns = [
     path('about', views.about, name='about'),
     path('kitchens',views.kitchen_overview, name="kitchens"),
     path('kitchen', views.kitchen, name="kitchen"),
-    path('restricted',views.restricted, name='restricted')
+    path('restricted',views.restricted, name='restricted'),
+    path('status_page',views.status, name='status_page'),
+    path('user',views.user, name='user')
 ]

@@ -1,7 +1,7 @@
 function getRndStatus(){
     const rndNum = Math.random();
-    if(rndNum > 0.5) return "taken"
-    else if(rndNum > 0.1) return "free"
+    if(rndNum > 0.5) return false
+    else if(rndNum > 0.1) return true
     else return "broken"
 }
 
@@ -28,41 +28,55 @@ function range(to){
 
 let people = ([...Array(10).keys()]).map(x => ({
     name: "Tom Hickman " + x,
-    picture: "images/expanded_photo_tkh.jpg",
+    picture: "http://127.0.0.1:8000/static/images/expanded_photo_tkh.jpg",
     username: "thickman" + x 
 }))
 
+function parseStatus(status){
+    if(status){
+        return "free"
+    }
+    else{
+        return "taken"
+    }
+}
+
 let peopleGroups = chunk(people, PEOPLE_PER_SLIDE);
 
-function setCurrentKitchenStatus(status){
-    function hobInfoToHTML(info){
-        return /*html*/`
-            <div class="hob ${info.status}">
-                <div>
-                    ${info.name}
-                </div>
-            </div>
-        `
-    }
+function getTakenExtraHTML(object){
+    return (
+            !object.status ? `
+            data-toggle="popover" data-trigger="hover"
+            data-content=${object.owner}`:""
+        ) + " " + 
+        (
+            !object.status?
+            `data-owner="${object.owner}"`:""
+        )
+}
 
+function setCurrentKitchenStatus(status){
     document.querySelector(".hobs").innerHTML = status.hobs.map(
         hobGroup => /*html*/`
         <div class="hob-group">
         ${
-            (hobGroup.length >= 3)?
-                /*html*/`
+            chunk(hobGroup, 2).map(
+                hobLine => /*html*/`
                 <div class="hob-line">
-                    ${hobGroup.slice(0, 2).map(hobInfoToHTML).join("\n")}
-                </div>
-                <div class="hob-line">
-                    ${hobGroup.slice(2).map(hobInfoToHTML).join("\n")}
-                </div>
-                `:
-                /*html*/`
-                <div class="hob-line">
-                    ${hobGroup.map(hobInfoToHTML).join("\n")}
+                    ${hobLine.map(
+                        hob => /*html*/`
+                        <div
+                        ${getTakenExtraHTML(hob)}
+                        class="hob ${parseStatus(hob.status)}">
+                            <div>
+                                ${hob.name}
+                            </div>
+                        </div>
+                        `
+                    ).join("\n")}
                 </div>
                 `
+            ).join("\n")
         }
         </div>
         `
@@ -79,14 +93,8 @@ function setCurrentKitchenStatus(status){
                         ${
                             fridgeRow.map(fridgeSlot => 
                                 /*html*/`
-                                <div ${fridgeSlot.status == "taken"?`data-owner="${fridgeSlot.owner}"`:""}
-                                     class="fridge-slot ${fridgeSlot.status}"
-                                     ${
-                                        fridgeSlot.status == "taken" ? `
-                                        data-toggle="popover" data-trigger="hover"
-                                        data-content=${fridgeSlot.owner}
-                                        `:""
-                                     }>&nbsp;</div>
+                                <div class="fridge-slot ${parseStatus(fridgeSlot.status)}"
+                                    ${getTakenExtraHTML(fridgeSlot)}>&nbsp;</div>
                                      
                                 `
                             ).join("\n")
@@ -101,7 +109,7 @@ function setCurrentKitchenStatus(status){
 
     document.querySelector(".ovens").innerHTML = status.ovens.map(
         oven => /*html*/`
-        <div class="oven ${oven.status}">
+        <div ${getTakenExtraHTML(oven)} class="oven ${parseStatus(oven.status)}">
             <div>
             ${oven.name}
             </div>
@@ -119,6 +127,10 @@ function setCurrentKitchenStatus(status){
             <b>Ovens:</b> <span>${status.ovens.length}</span>
         </div>
     `
+}
+
+async function populateCurrentKitchenStatus(){
+    await fetch("http://127.0.0.1:8000/")
 }
 
 function onCarouselNext(newSlide){
@@ -173,39 +185,41 @@ $(() => {
         hobs: [
             [{
                 name: "my Hob",
-                status: "free"
+                status: true
             }, {
                 name: "another Hob",
-                status: "taken"
+                status: false,
+                owner: "thickman1"
             },
             {
                 name: "yet another Hob",
-                status: "free"
+                status: true
             }],
             [{
                 name: "single Hob",
-                status: "free"
+                status: true
             }]
         ],
         fridges: [{
             name: "my fridge", 
             contents: [
-                [{status: "taken", owner: "thickman1"}, {status: "free"}],
-                [{status: "free"}, {status: "taken", owner: "thickman2"}],
-                [{status: "free"}, {status: "free"}],
-                [{status: "taken", owner: "thickman3"}, {status: "free"}],
-                [{status: "free"}, {status: "taken", owner: "thickman10"}],
-                [{status: "taken", owner: "thickman7"}, {status: "free"}],
-                [{status: "free"}, {status: "taken", owner: "thickman9"}]
+                [{status: false, owner: "thickman1"}, {status: true}],
+                [{status: true}, {status: false, owner: "thickman2"}],
+                [{status: true}, {status: true}],
+                [{status: false, owner: "thickman3"}, {status: true}],
+                [{status: true}, {status: false, owner: "thickman10"}],
+                [{status: false, owner: "thickman7"}, {status: true}],
+                [{status: true}, {status: false, owner: "thickman9"}]
             ]
         }],
         ovens: [{
             name: "my oven",
-            status: "free"
+            status: false,
+            owner: "thickman1"
         },
         {
             name: "another oven",
-            status: "free"
+            status: true
         }]
     })
 
