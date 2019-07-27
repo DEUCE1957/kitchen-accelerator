@@ -2,10 +2,16 @@
 
 ## User
 Functions to modify user information in the database
-### add_user
+
+### add_user(firstname, lastname, password, email, profilepicture)
 function to add users into the database.
 
 returns boolean value depending on if the add was succesful
+
+### delete_user(username)
+function to delete users from the database
+
+returns boolean value depending on if the deletion was succesful
 
 ## Kitchen
 Functions to modify kitchen information in the database
