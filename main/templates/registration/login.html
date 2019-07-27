@@ -1,42 +1,17 @@
 {% extends 'main/base.html' %}
+
+{% block head_block %}
+<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/login_patches.css">
+{% endblock %}
+
 {% block body_block %}
 <h1>Login to the Kitchen Accelerator</h1>
 <br>
 
-<style>
-input[type=text], input[type=password]{
-    display: block;
-    width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    width: 300px;
-    display: inline-block;
-}
-
-label[for="id_password"] {
-    padding-right: 16px;
-}
-
-label[for="id_username"] {
-    padding-right: 10px;
-}
-
-form {
-    padding-left: 10px;
-}
-</style>
-
 <form id="login_form" method="post" action=".">
     {% csrf_token %}
     {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
+        <input type="submit" class="btn btn-outline-primary" value="submit" />
         <input type="hidden" name="next" value="{{next}}" />
     </form>
     <br>
