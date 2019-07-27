@@ -2,10 +2,10 @@
 {% block body_block %}
 <h1>Login to the Kitchen Accelerator</h1>
 
-<form id="login_form" method="post" action="{% url 'login' %}">
+<form id="login_form" method="post" action=".">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="submit" />
+    <input type="submit" value="Log in" />
     <input type="hidden" name="next" value="{{next}}" />
 </form>
 <p>
