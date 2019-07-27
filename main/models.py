@@ -37,6 +37,7 @@ class Members(models.Model):
 
     class Meta:
         unique_together = (('user_id', 'kitchen_id'),)
+        verbose_name_plural = 'Members'
 
 
 # define Fridge-table
