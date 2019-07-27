@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from main.forms import UserForm, UserProfileForm
 from main.models import *
@@ -11,7 +12,7 @@ def home(request):
     context_dict = {}
     return render(request, 'main/home.html', context=context_dict)
 
-
+@login_required
 def kitchen(request):
     context_dict = {}
     return render(request, 'main/kitchen.html', context = context_dict)
@@ -104,6 +105,17 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied")
 
     else:
-        return render(request,'main/login.html')
+        return render(request, 'main/login.html', {})
+
+
 def about(request):
     return render(request, 'main/about.html', context={})
+
+@login_required
+def restricted(request):
+    return HttpResponse("You've discovered a secret!")
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

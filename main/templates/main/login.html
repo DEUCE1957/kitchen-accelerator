@@ -10,6 +10,12 @@
 
 <form id="login_form" method="post" action="{% url 'login' %}">
     {% csrf_token %}
+    <div class='error'>
+        <ul>
+            <li>{{form.errors.username}}</li>
+            <li>{{form.errors.password}}</li>
+        </ul>
+    </div>
     Username: <input type="text" name="username" value="" size="50" />
     <br />
     Password: <input type="password" name="password" value="" size="50" />.
