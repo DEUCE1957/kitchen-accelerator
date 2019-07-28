@@ -12,16 +12,11 @@ def add_cell(shelf_id):
     return True
 
 # reserve the cell for a certain user
-def book_cell(cell_id, user_id):
-    # search for user to add
-    owning_user = None
-    for up in UserProfile.objects.all():
-        if up.user.id == user_id:
-            owning_user = up
+def book_cell(cell_id, user):
     # set cell to be reserved
     edit_cell = Cell.objects.get(id = cell_id)
     edit_cell.full = True
-    edit_cell.owner = owning_user
+    edit_cell.owner = user
     edit_cell.save()
     # check if shelf is full
     cell_shelf = Shelf.objects.get(id = edit_cell.shelf.id)

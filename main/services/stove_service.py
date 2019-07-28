@@ -22,16 +22,11 @@ def delete_stove(stove_id):
 
 
 # reserve the stove for a certain user
-def book_stove(stove_id, user_id):
-    owning_user = None
-    # search for user
-    for up in UserProfile.objects.all():
-        if up.user.id == user_id:
-            owning_user = up
+def book_stove(stove_id, user):
     # set stove to be reserved
     edit_stove = Stove.objects.get(id = stove_id)
     edit_stove.free = False
-    edit_stove.owner = owning_user
+    edit_stove.owner = user
     edit_stove.save()
     return True
     

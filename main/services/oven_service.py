@@ -21,16 +21,11 @@ def delete_oven(oven_id):
     Oven.objects.get(id = oven_id).delete()
 
 # reserve the oven for a certain user
-def book_oven(oven_id, user_id):
-    owning_user = None
-    # search for user
-    for up in UserProfile.objects.all():
-        if up.user.id == user_id:
-            owning_user = up
+def book_oven(oven_id, user):
     # set oven to be reserved
     edit_oven = Oven.objects.get(id = oven_id)
     edit_oven.free = False
-    edit_oven.owner = owning_user
+    edit_oven.owner = user
     edit_oven.save()
     return True
     
