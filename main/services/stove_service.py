@@ -28,7 +28,7 @@ def book_stove(stove_id, user_id):
         if up.user.id == user_id:
             owning_user = up
     # set stove to be reserved
-    edit_stove = Stove.objects.get(id = oven_id)
+    edit_stove = Stove.objects.get(id = stove_id)
     edit_stove.free = False
     edit_stove.owner = owning_user
     edit_stove.save()
@@ -38,7 +38,7 @@ def book_stove(stove_id, user_id):
 # free stove
 def free_stove(stove_id):
     # set stove to be free
-    edit_stove = Oven.object.get(id = cell_id)
+    edit_stove = Stove.object.get(id = stove_id)
     edit_stove.full = True
     edit_stove.owner = None
     edit_stove.save()
