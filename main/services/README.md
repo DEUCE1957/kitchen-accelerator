@@ -60,21 +60,21 @@ function to add cells into the database.
 
 returns boolean value depending on if the add was succesful
 
-### book_cell(cell_id)
-function to set an owner for the cell and cell.full = true . Checks all the cells in the shelf are full and sets the shelf full.
+### book_cell
+function to set an owner for the cell and cell.full = true . Checks all the cells in the shelf are full and sets the shelf full. Checks if the fridge is full and sets the fridge full.
 
 returns boolean value depending if the set was succesful
 
 
-### free_cell(cell_id)
-function to set cell.full = false. Checks if the shelf is full and sets the shelf not full.
+### free_cell
+function to set cell.full = false. Checks if the shelf is full and sets the shelf not full. Checks if the fridge is full and sets the fridge not full.
 
 returns boolean value depending if the set was succesful
 
 
 ## Oven
 Functions to modify oven information in the database
-### add_oven(fridge_id)
+### add_oven(kitchen_id)
 function to add ovens into the database.
 
 returns boolean value depending on if the add was succesful
@@ -84,10 +84,16 @@ function to remove ovens from the database.
 
 returns boolean value depending on if the deletion was succesful.
 
+### book_oven
+reserves oven for an user
+
+### free_oven
+frees the oven from user
+
 
 ## Stove
 Functions to modify stove information in the database
-### add_stove(fridge_id)
+### add_stove(kitchen_id)
 function to add stoves into the database.
 
 returns boolean value depending on if the add was succesful
@@ -97,3 +103,9 @@ returns boolean value depending on if the add was succesful
 function to remove stoves from the database.
 
 returns boolean value depending on if the deletion was succesful.
+
+### book_stove
+reserves the stove for an user
+
+### free_stove
+frees the stove 
