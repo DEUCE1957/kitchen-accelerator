@@ -51,3 +51,4 @@ def free_cell(cell_id):
         if shelf_fridge.full == True:
             shelf_fridge.full = False
             shelf_fridge.save()
+    return True
