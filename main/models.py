@@ -71,13 +71,15 @@ class Kitchen(models.Model):
 
 # define Members-relation
 class Members(models.Model):
-    user = models.OneToOneField(
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE)
-    kitchen = models.OneToOneField(
+    kitchen = models.ForeignKey(
         Kitchen, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = (('user', 'kitchen'),)
+        constraints = [
+            models.UniqueConstraint(fields= ['user','kitchen'], name='unique users')]
         verbose_name_plural = 'Members'
 
 

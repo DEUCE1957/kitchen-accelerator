@@ -5,22 +5,18 @@ from django.db.models.query import QuerySet
 from main.models import *
 
 
-def add_user(firstname, lastname, username, password, email, profilepicture):
-    try:
-        # create a new user with given variables
-        new_user, check = UserProfile.objects.create(
-            user=User.objects.create(
-                first_name=firstname,
-                last_name=lastname,
-                username=username,
-                password=ah.make_password(password),
-                email=email),
-            picture=profilepicture)
-        # save changes to database
-        new_user.save()
-        return True
-    except:
-        return("User already exists")
+def add_user(firstname, lastname, username, password, email):
+    # create a new user with given variables
+    new_user = UserProfile.objects.create(
+        user=User.objects.create(
+            first_name=firstname,
+            last_name=lastname,
+            username=username,
+            password=ah.make_password(password),
+            email=email))
+    # save changes to database
+    new_user.save()
+    return True
 
 
 def delete_user(username):

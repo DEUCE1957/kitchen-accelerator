@@ -2,17 +2,12 @@ from django.db.models.query import QuerySet
 from main.models import *
 
 def add_member(new_user, old_kitchen):
-    # create the new member object to add into the database
-    try:
-        new_member = Members.objects.create(
-            user = new_user,
-            kitchen = old_kitchen)
-        # save the chenges
-        new_member.save()
-        return True
-    except:
-        return False
-
+    new_member = Members.objects.create(
+        user = new_user,
+        kitchen = Kitchen.objects.get(id = old_kitchen.id))
+    # save the chenges
+    new_member.save()
+    return True
     
     
 def delete_member(remove_user, remove_kitchen):

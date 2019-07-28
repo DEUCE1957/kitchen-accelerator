@@ -71,8 +71,8 @@ def populate():
             u["last_name"],
             u["username"],
             u["password"],
-            u["email"],
-            u["profile_picture"]))
+            u["email"]))
+
 
     # create dummy kitchens
     kitchens = [{"location":"Bl38",
@@ -95,6 +95,7 @@ def populate():
             if random.randint(1,2) == 1:
                 print("member %s added to %s "%(u.user.first_name, k.name) +
                     str(members_service.add_member(u, k)))
+            
             
         
     succesful_actions = 0
@@ -150,6 +151,14 @@ def populate():
             print("Induction stove add" + str(stove_service.add_stove(k.id, "induction")))
             print("Electric stove add" + str(stove_service.add_stove(k.id, "electric")))
     
+    
+    for cell in Cell.objects.all():
+        if cell.full == True:
+            print("BEFORE: cell full: " + str(cell.full) + " owner: " + str(cell.owner.user.first_name))
+            cell_service.free_cell(cell.id)
+            updated_cell = Cell.objects.get(id = cell.id)
+            print("AFTER: cell full: " + str(updated_cell.full) + " owner: " + str(updated_cell.owner))
+            
     
 
 if __name__ == '__main__':
