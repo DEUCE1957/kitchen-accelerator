@@ -126,9 +126,12 @@ def populate():
     # randomly book cells with random members of the kitchen
     for cell in Cell.objects.all():
         if random.randint(1,3) == 1:
-            k = id = cell.shelf.fridge.kitchen
-            mem = Members.objects.filter(kitchen=k)
-            cell_service.book_cell(cell.id, mem[random.randint(0, len(mem)-1)])
+            mem = Members.objects.filter(kitchen=cell.shelf.fridge.kitchen)
+            if mem:
+                if len(mem) > 1:
+                    cell_service.book_cell(cell.id, mem[random.randint(0, len(mem)-1)])
+                else:
+                    cell_service.book_cell(cell.id, mem[0])
 
     succesful_actions = 0
     # add 4 ovens into every kitchen
