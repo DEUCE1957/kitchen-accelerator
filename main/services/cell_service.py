@@ -19,7 +19,7 @@ def book_cell(cell_id, user_id):
             owning_user = up
     # set cell to be reserved
     edit_cell = Cell.objects.get(id = cell_id)
-    edit_cell.full == True
+    edit_cell.full = True
     edit_cell.owner = owning_user
     edit_cell.save()
     # check if shelf is full
@@ -38,7 +38,7 @@ def book_cell(cell_id, user_id):
 def free_cell(cell_id):
     # set cell to be free
     edit_cell = Cell.object.get(id = cell_id)
-    edit_cell.full == False
+    edit_cell.full = False
     edit_cell.owner = None
     edit_cell.save()
     # check if shelf was full before freeing space
