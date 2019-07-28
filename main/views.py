@@ -29,12 +29,12 @@ def help(request):
 # >>>> BEGIN MODERATOR VIEWS <<<<
 def moderator(request):
     context_dict = {}
-    return render(request, 'main/placeholder.html',context=context_dict)
+    return render(request, 'main/user.html',context=context_dict)
 
 
 def edit_user(request):
     context_dict = {}
-    return render(request, 'main/edit_user.html', context=context_dict)
+    return render(request, 'main/editUser.html', context=context_dict)
 
 
 def invite(request):
