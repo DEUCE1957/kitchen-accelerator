@@ -8,10 +8,11 @@ def add_oven(kitchen_id):
     kitchen = Kitchen.objects.get(id=kitchen_id)
     new_oven = Oven.objects.create(
         kitchen = kitchen)
-    # increase the amount of ovens
-    kitchen.ovens += 1
     # save changes to database
     new_oven.save()
+    # increase the amount of ovens
+    kitchen.ovens += 1
+    kitchen.save()
     return True
 
 
