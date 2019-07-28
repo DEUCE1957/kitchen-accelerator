@@ -15,13 +15,6 @@ def add_member(new_user, old_kitchen):
 
     
     
-def delete_member(user_id, kitchen_id):
-    remove_user = None
-    # search for user to remove
-    for up in UserProfile.objects.all():
-        if up.user.id == user_id:
-            remove_user = up
-    # find matching kitchen
-    remove_kitchen = Kitchen.objects.get(id = kitchen_id)
+def delete_member(remove_user, remove_kitchen):
     Members.objects.filter(user = remove_user).filter(remove_kitchen).delete()
     

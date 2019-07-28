@@ -10,4 +10,3 @@ def add_kitchen(location, name):
     # save changes to database
     new_kitchen.save()
     return True
-        
