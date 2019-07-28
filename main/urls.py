@@ -17,4 +17,7 @@ urlpatterns = [
     # Kitchen Views
     path('kitchens/', views.kitchen_overview, name="kitchens"),
     path('kitchen/<slug:kitchen_name_slug>', views.kitchen, name="kitchen"),
+    # Test Views
+    path("test/<slug:kitchen_name_slug>", views.test, name="test"),
+    path("allocate/<slug:kitchen_name_slug>", views.allocate, name="allocate"),
 ]

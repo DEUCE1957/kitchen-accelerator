@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% load staticfiles %}
+{% block head_block %}
+{% endblock %}
+
+{% block header_title_block %}Kitchen Test Change{% endblock %}
+
+{% block body_block %}
+<p> Fridge allocation executed </p>
+{% if fridges %}
+    <ul>
+    {% for fridge in fridges %}
+        <li>
+            Name: {{ fridge.name }} </br>
+            Contents: {{fridge.contents}} </br>
+            <!-- {% for shelf in fridge %}
+                Shelf no: {{ forloop.counter0 }}, {{ shelf }}  </br>
+                {% for cell in shelf %}
+                    Status: {{ cell.status }}  </br>
+                    Owner: {{cell.owner }}  </br>
+                {% endfor %}
+            {% endfor %} -->
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<h3> Hobs </h3>
+{% if hobs %}
+    {% for hob in hobs %}
+        Name: {{ hob.name }} <br/>
+        Status: {{ hob.status }} <br/>
+    {% endfor %}
+{% endif %}
+<h3> Ovens </h3>
+{% if ovens %}
+    {% for oven in ovens %}
+        Name: {{ oven.name }} <br/>
+        Status: {{ oven.status }} <br/>
+    {% endfor %}
+{% endif %}
+<h3> Members </h3>
+{% if members %}
+    {% for list in members %}
+        {% for member in list %}
+            Member: {{ member.user }} <br/>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% endblock %}

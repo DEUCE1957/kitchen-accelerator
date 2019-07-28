@@ -1,8 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
-from main.forms import UserForm, UserProfileForm
+from main.services import cell_service
 from main.models import *
 from django.urls import reverse
 import logging
@@ -143,13 +140,38 @@ def kitchen(request, kitchen_name_slug):
 
 # >>>> UTILITIES <<<<
 def allocate_kitchen(kitchen_name_slug):
+    def stove_to_json(stove):
+        dict = {}
+        dict["name"] = stove.name
+        dict["status"] = stove.free
+        return dict
+
+    def oven_to_json(oven):
+        dict = {}
+        dict["name"] = oven.name
+        dict["status"] = oven.free
+        return dict
+
+    def member_to_json(member):
+        dict = {}
+        dict["user"] = member.user.user.first_name
+        dict["kitchen"] = member.kitchen.name
+        return dict
     logger = logging.getLogger("mylogger")
+    context_dict = {}
+    kitchen = Kitchen.objects.get(slug=kitchen_name_slug)
+
+    context_dict["hobs"] = [stove_to_json(stove) for stove in Stove.objects.filter(kitchen=kitchen)]
+    context_dict["ovens"] = [oven_to_json(oven) for oven in Oven.objects.filter(kitchen=kitchen)]
+    context_dict["fridges"] = []
     kitchen = Kitchen.objects.get(slug=kitchen_name_slug)
     noCells = 0
     for fridge in Fridge.objects.filter(kitchen=kitchen):
         for shelf in Shelf.objects.filter(fridge=fridge):
             noCells += Cell.objects.filter(shelf=shelf).count()
     members = Members.objects.filter(kitchen = kitchen)
+    context_dict["members"] = [[member_to_json(member) for member in Members.objects.filter(kitchen=kitchen)]]
+    print("Members: " + str(context_dict["members"]))
     try:
         quota = round(noCells / len(members))
     except ZeroDivisionError:
@@ -158,18 +180,40 @@ def allocate_kitchen(kitchen_name_slug):
     member_index, member_num = 0, 0
     # Allocate to member until member meets quote no. of cells
     for fridge in Fridge.objects.filter(kitchen=kitchen):
+        fridge_contents = []
         for shelf in Shelf.objects.filter(fridge=fridge):
+            shelf_content = []
             for cell in Cell.objects.filter(shelf=shelf):
-                if cell.owner is None:
-                    try:
-                        cell.owner = members[member_index]
-                    except:
-                        cell.owner = None
-                else:
-                    print("Owner %s replaced with %s for cell %s"%(cell.owner.username,
-                                                                   members[member_index].username,
-                                                                   cell.id))
+                member = members[member_index]
+                cell_service.book_cell(cell.id, member.user)
+                # if cell.owner is None:
+                #     try:
+                #         cell.owner = members[member_index]
+                #     except:
+                #         cell.owner = None
+                # else:
+                #     print("Owner %s replaced with %s for cell %s"%(cell.owner.username,
+                #                                                    members[member_index].username,
+                #                                                    cell.id))
+                cell_content = {"status": cell.full, "owner": cell.owner}
+                shelf_content.append(cell_content)
                 member_num += 1
                 if member_num == quota:
+                    print("Member: " + member.user.user.first_name)
+                    member_num = 0
                     member_index += 1
+            fridge_contents.append(shelf_content)
+        context_dict["fridges"].append({"name": fridge.name, "contents": fridge_contents})
+    return context_dict
 # >>>> END UTILITIES <<<<
+
+
+# >>>> TEST VIEWS <<<<
+def test(request):
+    context_dict = {}
+    return render(request, 'main/kitchen_test_info.html', context = context_dict)
+
+
+def allocate(request, kitchen_name_slug):
+    context_dict = allocate_kitchen(kitchen_name_slug)
+    return render(request, 'main/kitchen_test_change.html', context = context_dict)
