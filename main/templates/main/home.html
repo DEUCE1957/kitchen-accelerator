@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+{% load staticfiles %}
+
 <html>
 
     <head>
@@ -32,7 +34,7 @@
                 <br />
                 ACCELERATOR
             </h1>
-            <img src="static/images/Kitchen_Accelerator_reduced.png" />
+            <img src="{% static 'images/Kitchen_Accelerator_reduced.png' %}" />
             <div class="button-container">
                 <a href="/accounts/login/">
                     <button class="btn btn-lg btn-outline-primary my-button">Enter</button>
