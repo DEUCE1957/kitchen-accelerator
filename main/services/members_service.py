@@ -3,6 +3,7 @@ from main.models import *
 
 def add_member(user_id, kitchen_id):
     # search for user to add
+    new_user = None
     for up in UserProfile.objects.all():
         if up.user.id == user_id:
             new_user = up

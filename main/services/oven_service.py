@@ -21,6 +21,7 @@ def delete_oven(oven_id):
 
 # reserve the oven for a certain user
 def book_oven(oven_id, user_id):
+    owning_user = None
     # search for user
     for up in UserProfile.objects.all():
         if up.user.id == user_id:
