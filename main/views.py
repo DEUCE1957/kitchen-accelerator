@@ -9,7 +9,7 @@ import logging
 import json
 import datetime
 
-
+# >>>> BEGIN GENERAL VIEWS <<<<
 def home(request):
     context_dict = {}
     return render(request, 'main/home.html', context=context_dict)
@@ -19,16 +19,46 @@ def about(request):
     return render(request, 'main/about.html', context={})
 
 
+def help(request):
+    context_dict = {}
+    return render(request, 'main/help.html', context=context_dict)
+# >>>> END GENERAL VIEWS <<<<
+
+# >>>> BEGIN MODERATOR VIEWS <<<<
+def moderator(request):
+    context_dict = {}
+    return render(request, 'main/placeholder.html',context=context_dict)
+
+
+def edit_user(request):
+    context_dict = {}
+    return render(request, 'main/edit_user.html', context=context_dict)
+
+
+def invite(request):
+    context_dict = {}
+    return render(request, 'main/invite.html', context=context_dict)
+# >>>> END MODERATOR VIEWS <<<<
+
+
+# >>>> BEGIN USER VIEWS <<<<
 def user(request):
     context_dict = {}
     return render(request, 'main/user.html', context = context_dict)
-
 
 def kitchen_status(request):
     context_dict = {}
     return render(request, 'main/status_page.html', context = context_dict)
 
 
+def booking(request):
+    context_dict = {}
+    return render(request, 'main/booking.html', context=context_dict)
+
+# >>>> END USER VIEWS <<<<
+
+
+# >>>> BEGIN KITCHEN VIEWS <<<<
 def kitchen_overview(request):
     kitchens = Kitchen.objects.order_by('name')
     context_dict = {"kitchens": kitchens}
@@ -100,59 +130,11 @@ def kitchen(request, kitchen_name_slug):
         context_dict["fridges"] = None
         context_dict["hobs"] = None
         context_dict["ovens"] = None
-    return render(request, 'main/kitchen_placeholder.html', context={"json": json.dumps(context_dict)})
+    return render(request, 'main/kitchen_check.html', context={"json": json.dumps(context_dict)})
+# >>>> END KITCHEN VIEWS <<<<
 
 
-def booking(request):
-    context_dict = {}
-    return render(request, 'main/placeholder.html',context=context_dict)
-
-
-def profile(request):
-    context_dict = {}
-    return render(request, 'main/placeholder.html',context=context_dict)
-
-
-def moderator(request):
-    context_dict = {}
-    return render(request, 'main/placeholder.html',context=context_dict)
-
-
-def register(request):
-    registered = False
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-
-            profile.save()
-
-            registered = True
-        else:
-            print(user_form.errors,profile_form.errors)
-    else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-
-    return render(request,
-                  'main/register.html',
-                  {'user_form':user_form,
-                   'profile_form':profile_form,
-                   'registered':registered})
-    context_dict = {}
-    return render(request, 'main/placeholder.html',context=context_dict)
-
-
-
+# >>>> UTILITIES <<<<
 def allocate_kitchen(kitchen_name_slug):
     logger = logging.getLogger("mylogger")
     kitchen = Kitchen.objects.get(slug=kitchen_name_slug)
@@ -183,3 +165,4 @@ def allocate_kitchen(kitchen_name_slug):
                 member_num += 1
                 if member_num == quota:
                     member_index += 1
+# >>>> END UTILITIES <<<<
