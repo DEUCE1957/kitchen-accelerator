@@ -42,6 +42,9 @@ returns boolean value depending on if the add was succesful
 ### delete_fridge
 function to remove fridges from the database. Removing will cascade onto shelves and cells associated with the fridge.
 
+### rename_fridge
+changes the name of the fridge
+
 
 
 ## Shelf
@@ -90,6 +93,9 @@ reserves oven for an user
 ### free_oven
 frees the oven from user
 
+### rename_oven
+changes the name of the oven
+
 
 ## Stove
 Functions to modify stove information in the database
@@ -109,3 +115,6 @@ reserves the stove for an user
 
 ### free_stove
 frees the stove 
+
+### rename_stove
+changes the name of the stove
