@@ -39,7 +39,7 @@ def book_stove(stove_id, user_id):
 def free_stove(stove_id):
     # set stove to be free
     edit_stove = Stove.object.get(id = stove_id)
-    edit_stove.full = True
+    edit_stove.free = True
     edit_stove.owner = None
     edit_stove.save()
     return True
