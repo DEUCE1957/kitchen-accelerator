@@ -44,7 +44,7 @@ def populate():
               "password": "mememan123",
               "email": 'meme.man@cern.ch',
               "profile_picture": 'default.jpg'},
-             {"first_name": "Ornag",
+             {"first_name": "Orang",
               "last_name": "Notgood",
               "username" : "orangbad",
               "password":"orang123",
@@ -94,7 +94,7 @@ def populate():
         for k in Kitchen.objects.all():
             if random.randint(1,2) == 1:
                 print("member %s added to %s "%(u.user.first_name, k.name) +
-                    str(members_service.add_member(u.user.id, k.id)))
+                    str(members_service.add_member(u, k)))
             
         
     succesful_actions = 0

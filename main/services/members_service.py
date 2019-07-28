@@ -1,17 +1,17 @@
 from django.db.models.query import QuerySet
 from main.models import *
 
-def add_member(user_id, kitchen_id):
+def add_member(new_user, old_kitchen):
     # search for user to add
-    new_user = None
-    for up in UserProfile.objects.all():
-        if up.user.id == user_id:
-            new_user = up
+    #new_user = None
+    #for up in UserProfile.objects.all():
+    #    if up.user.id == user_id:
+    #        new_user = up
     # create the new member object to add into the database
     try:
         new_member = Members.objects.create(
             user = new_user,
-            kitchen = Kitchen.objects.get(id=kitchen_id))
+            kitchen = old_kitchen)
         # save the chenges
         new_member.save()
         return True
