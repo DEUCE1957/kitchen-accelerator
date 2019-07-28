@@ -72,7 +72,7 @@ class Kitchen(models.Model):
 # define Members-relation
 class Members(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE)
+        UserProfile, on_delete=models.CASCADE)
     kitchen = models.OneToOneField(
         Kitchen, on_delete=models.CASCADE)
 
@@ -86,7 +86,7 @@ class Fridge(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kitchen = models.ForeignKey(Kitchen, on_delete=models.CASCADE, null=False)
     full = models.BooleanField(default=False)
-    name = models.CharField(default=random_string)
+    name = models.CharField(default=random_string, max_length=32)
 
 
 # define Shelf-table
@@ -109,7 +109,7 @@ class Oven(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kitchen = models.ForeignKey(Kitchen, on_delete=models.CASCADE, null=False)
     free = models.BooleanField(default=True)
-    name = models.CharField(default=random_string)
+    name = models.CharField(default=random_string, max_length=32)
     owner = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
 
 
@@ -119,7 +119,7 @@ class Stove(models.Model):
     kitchen = models.ForeignKey(Kitchen, on_delete=models.CASCADE)
     type = models.CharField(max_length=64, null=False)
     free = models.BooleanField(default=True)
-    name = models.CharField(default=random_string)
+    name = models.CharField(default=random_string, max_length=32)
     owner = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
     
 

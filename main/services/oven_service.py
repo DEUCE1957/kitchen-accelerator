@@ -16,7 +16,7 @@ def add_oven(kitchen_id):
 
 
 # delete oven from database
-def delete_oven(oven_id)
+def delete_oven(oven_id):
     Oven.objects.get(id = oven_id).delete()
 
 # reserve the oven for a certain user

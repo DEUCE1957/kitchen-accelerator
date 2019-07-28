@@ -14,6 +14,7 @@ def add_cell(shelf_id):
 # reserve the cell for a certain user
 def book_cell(cell_id, user_id):
     # search for user to add
+    owning_user = None
     for up in UserProfile.objects.all():
         if up.user.id == user_id:
             owning_user = up

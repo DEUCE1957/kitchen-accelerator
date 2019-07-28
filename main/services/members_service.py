@@ -7,11 +7,16 @@ def add_member(user_id, kitchen_id):
         if up.user.id == user_id:
             new_user = up
     # create the new member object to add into the database
-    new_member = Members.objects.create(
-        user = new_user,
-        kitchen = Kitchen.objects.get(id = kitchen_id))
-    # save the chenges
-    new_member.save()
+    try:
+        new_member = Members.objects.create(
+            user = new_user,
+            kitchen = Kitchen.objects.get(id=kitchen_id))
+        # save the chenges
+        new_member.save()
+        return True
+    except:
+        return False
+
     
     
 def delete_member(user_id, kitchen_id):
