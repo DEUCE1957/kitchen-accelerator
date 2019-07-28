@@ -23,6 +23,15 @@ returns boolean value depending on if the add was succesful
 ### delete_kitchen
 function to delete a kitchen from the database. Removing a kitchen will cascade onto fridges, ovens and stoves in the kitchen.
 
+## Members
+Functions for managing kitchens users
+### add_member
+function to add members to a kitchen
+
+### delete_member
+function to evict members from kitchens
+
+
 ## Fridge
 Functions to modify fridge information in the database
 ### add_fridge
