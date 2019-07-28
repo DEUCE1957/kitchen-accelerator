@@ -45,6 +45,6 @@ def free_stove(stove_id):
     return True
     
     
-# rename oven
+# rename stove
 def rename_stove(stove_id, new_name):
     Stove.object.get(id = stove_id).name = new_name

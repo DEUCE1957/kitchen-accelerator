@@ -38,7 +38,7 @@ def book_oven(oven_id, user_id):
 def free_oven(oven_id):
     # set oven to be free
     edit_oven = Oven.object.get(id = cell_id)
-    edit_oven.full = True
+    edit_oven.free = True
     edit_oven.owner = None
     edit_oven.save()
     return True
