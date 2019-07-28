@@ -21,6 +21,7 @@ def add_member(user_id, kitchen_id):
     
     
 def delete_member(user_id, kitchen_id):
+    remove_user = None
     # search for user to remove
     for up in UserProfile.objects.all():
         if up.user.id == user_id:
