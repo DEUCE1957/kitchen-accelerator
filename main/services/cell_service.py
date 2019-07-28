@@ -11,7 +11,7 @@ def add_cell(shelf_id):
     new_cell.save()
     return True
 
-
+# reserve the cell for a certain user
 def book_cell(cell_id, user_id):
     # search for user to add
     for up in UserProfile.objects.all():
@@ -23,14 +23,18 @@ def book_cell(cell_id, user_id):
     edit_cell.owner = owning_user
     edit_cell.save()
     # check if shelf is full
-    cell_shelf = Cell.objects.filter(shelf = edit_cell.shelf)
-    if cell_shelf.filter(full = False) == None:
+    cell_shelf = Shelf.objects.get(id = edit_cell.shelf.id)
+    if Cell.objects.filter(shelf = cell_shelf).filter(full = False) == None:
         cell_shelf.full = True
         cell_shelf.save()
+        # check if fridge is full
         shelf_fridge = Fridge.objects.get(id = cell_shelf.fridge.id)
-        if
+        if Shelf.objects.filter(fridge = shelf_fridge).filter(full = False) == None:
+            shelf_fridge.full = True
+            shelf_fridge.save()
     return True
     
+# free users cell 
 def free_cell(cell_id):
     # set cell to be free
     edit_cell = Cell.object.get(id = cell_id)
@@ -42,3 +46,8 @@ def free_cell(cell_id):
     if cell_shelf.full == True:
         cell_shelf.full = False
         cell_shelf.save()
+        # check the fridge
+        shelf_fridge = Fridge.objects.get(id = cell_shelf.fridge.id)
+        if shelf_fridge.full == True:
+            shelf_fridge.full = False
+            shelf_fridge.save()
