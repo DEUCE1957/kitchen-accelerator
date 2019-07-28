@@ -128,7 +128,7 @@ def populate():
         if random.randint(1,3) == 1:
             mem = Members.objects.filter(kitchen=cell.shelf.fridge.kitchen)
             if mem:
-                random_user = UserProfile.objects.get(user = mem[0])
+                random_user = UserProfile.objects.get(user = mem[0].user.user)
                 cell_service.book_cell(cell.id, random_user)
             else:
                 print("no users in kitchen")
