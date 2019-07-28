@@ -1,8 +1,9 @@
 {% extends 'main/base.html' %}
 
+{% load staticfiles %}
 {% block head_block %}
-<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/status_page.css" />
-<script type="text/javascript" src="http://127.0.0.1:8000/static/js/status_page.js"></script>
+<link rel="stylesheet" href="{% static "css/status_page.css" %}" />
+<script type="text/javascript" src="{% static "js/status_page.js" %}"></script>
 {% endblock %}
 
 {% block header_title_block %}Kitchen 22 Status{% endblock %}

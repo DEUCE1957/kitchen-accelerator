@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+{% extends 'main/base.html' %}
+
 {% load staticfiles %}
 
-<html>
-<head>
-    <title> Kitchens </title>
-</head>
+{% block title_block %}
+Kitchen List
+{% endblock %}
 
-<body>
+{% block body_block %}
     <h1> List of Kitchens </h1>
     <hr>
     <div>
         {% if kitchens %}
         <ul>
             {% for kitchen in kitchens %}
-                <li> {{kitchen.name}} </li>
+                <li> <a href="{% url 'kitchen' kitchen.slug %}"> {{kitchen.name}}</a> </li>
             {% endfor %}
         </ul>
         {% else %}
@@ -24,6 +24,4 @@
     <div>
         <a href="/main/about"> About </a>
     </div>
-</body>
-
-</html>
+{% endblock %}
