@@ -4,19 +4,32 @@ import re
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import uuid
+import random
+import string
 
 
+used_strings = []
+def random_string(string_length=10):
+    letters = string.ascii_lowercase
+    new_random = ''.join(random.choice(letters) for i in range(string_length))
+    if new_random not in used_strings:
+        return new_random
+    else:
+        random_string()
+    
+# define userprofile table
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
+    # define user classes
     user_type = (
         ("U", "User"),
         ("M", "Moderator"),
     )
-
+    # set user class
     type = models.CharField(choices=user_type, max_length=1, default='U')
-
-    picture = models.ImageField(upload_to='profile_pics', height_field=None, width_field=None, max_length=64, null=False, default='profile_pics/default.png')
+    # profilepicture
+    picture = models.ImageField(upload_to='profile_pics', height_field=None, 
+        width_field=None, max_length=64, null=False, default='profile_pics/default.png')
 
     def __str__(self):
         return self.user.username
@@ -52,7 +65,7 @@ class Kitchen(models.Model):
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
-        unique_slugify(self,self.name) #sets slug
+        unique_slugify(self, self.name) #sets slug
         super(Kitchen, self).save(*args, **kwargs)
 
 
@@ -73,6 +86,7 @@ class Fridge(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kitchen = models.ForeignKey(Kitchen, on_delete=models.CASCADE, null=False)
     full = models.BooleanField(default=False)
+    name = models.CharField(default=random_string)
 
 
 # define Shelf-table
@@ -87,7 +101,7 @@ class Cell(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shelf = models.ForeignKey(Shelf, on_delete=models.CASCADE, null=False)
     full = models.BooleanField(default=False)
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
 
 
 # define Oven-table
@@ -95,6 +109,8 @@ class Oven(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kitchen = models.ForeignKey(Kitchen, on_delete=models.CASCADE, null=False)
     free = models.BooleanField(default=True)
+    name = models.CharField(default=random_string)
+    owner = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
 
 
 # define Stoves-table
@@ -103,6 +119,9 @@ class Stove(models.Model):
     kitchen = models.ForeignKey(Kitchen, on_delete=models.CASCADE)
     type = models.CharField(max_length=64, null=False)
     free = models.BooleanField(default=True)
+    name = models.CharField(default=random_string)
+    owner = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
+    
 
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
                    slug_separator='-'):
