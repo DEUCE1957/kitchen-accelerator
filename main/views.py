@@ -9,6 +9,7 @@ import logging
 import json
 import datetime
 
+
 # >>>> BEGIN GENERAL VIEWS <<<<
 def home(request):
     context_dict = {}
@@ -23,6 +24,7 @@ def help(request):
     context_dict = {}
     return render(request, 'main/help.html', context=context_dict)
 # >>>> END GENERAL VIEWS <<<<
+
 
 # >>>> BEGIN MODERATOR VIEWS <<<<
 def moderator(request):
