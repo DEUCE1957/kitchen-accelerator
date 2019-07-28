@@ -22,9 +22,11 @@ from django.urls import path, include
 from registration.backends.simple.views import RegistrationView
 from main import views
 
+
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, url):
         return '/main/'
+
 
 urlpatterns = [
     path('', views.home, name='home'),

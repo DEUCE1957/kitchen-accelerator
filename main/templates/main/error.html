@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% load staticfiles %}
+
+{% block title_block %}
+ERROR
+{% endblock %}
+
+{% block body_block %}
+<div class="broken">
+    <p fontsize="40px"> Woopsie... Something Broke </p>
+    <img src="{% static 'images/broken_egg.png' %}" width = 40% style="-webkit-filter: invert(1);
+   filter: invert(1);">
+</div>
+{% endblock %}

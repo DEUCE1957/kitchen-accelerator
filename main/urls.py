@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about', views.about, name='about'),
     path('help', views.help, name='help'),
+    path('error', views.error, name='error'),
     # MODERATOR VIEWS
     path('moderator',views.moderator,name='moderator'),
     path('edit_user', views.edit_user, name='edit_user'),

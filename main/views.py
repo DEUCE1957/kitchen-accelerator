@@ -23,6 +23,11 @@ def about(request):
 def help(request):
     context_dict = {}
     return render(request, 'main/help.html', context=context_dict)
+
+
+def error(request):
+    context_dict = {}
+    return render(request, 'main/error.html', context=context_dict)
 # >>>> END GENERAL VIEWS <<<<
 
 
