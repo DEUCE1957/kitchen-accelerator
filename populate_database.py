@@ -128,10 +128,11 @@ def populate():
         if random.randint(1,3) == 1:
             mem = Members.objects.filter(kitchen=cell.shelf.fridge.kitchen)
             if mem:
-                if len(mem) > 1:
-                    cell_service.book_cell(cell.id, mem[random.randint(0, len(mem)-1)])
-                else:
-                    cell_service.book_cell(cell.id, mem[0])
+                random_user = UserProfile.objects.get(user = mem[0])
+                cell_service.book_cell(cell.id, random_user)
+            else:
+                print("no users in kitchen")
+                    
 
     succesful_actions = 0
     # add 4 ovens into every kitchen
